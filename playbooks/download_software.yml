@@ -1,0 +1,40 @@
+---
+- name: Download software from Red Hat
+  hosts: localhost
+  connection: local
+  vars:
+    aap_bundle_sha_value: 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
+  vars_files:
+    - secrets.yml
+
+  tasks:
+
+    - name: Ensure we have a access token the Red Hat Customer portal
+      register: access_token
+      until: access_token is not failed
+      retries: 1
+      delay: 20
+      ansible.builtin.uri:
+        url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+        method: POST
+        body_format: form-urlencoded
+        return_content: true
+        body:
+          grant_type: refresh_token
+          client_id: rhsm-api
+          refresh_token: "{{ offline_token }}"
+
+    - name: Ensure we have the AAP bundle
+      tags:
+        - container
+      register: download_aap_tarball
+      until: download_aap_tarball is not failed
+      retries: 15
+      delay: 20
+      ansible.builtin.get_url:
+        url: https://api.access.redhat.com/management/v1/images/{{ aap_bundle_sha_value }}/download
+        headers:
+          accept: application/json
+          Authorization: Bearer {{ access_token.json.access_token }}
+        dest: ~/aap.tar.gz
+        checksum: "sha256: {{ aap_bundle_sha_value }}"
