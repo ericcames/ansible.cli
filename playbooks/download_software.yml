@@ -38,6 +38,7 @@
         dest: ~/aap.tar.gz
         checksum: "sha256: {{ aap_bundle_sha_value }}"
 
-    - name: Print
-      debug:
-        var: download_aap_tarball
+    - name: Ensure the aap bundle is opened up
+      ansible.builtin.unarchive:
+        src: ~/aap.tar.gz
+        dest: ~/
