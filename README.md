@@ -26,7 +26,7 @@ Downloading Ansible Autmation Platform
 
 **Login to the server that we will be running the Ansible installer from**
 
-- [Register system with Red Hat customer protal](https://access.redhat.com/solutions/253273 "RHSM")
+- [Register system with Red Hat customer portal](https://access.redhat.com/solutions/253273 "RHSM")
 - Run the following commands
 ```
 sudo -i
