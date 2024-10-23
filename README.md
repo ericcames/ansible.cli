@@ -47,6 +47,9 @@ echo localhost > inventory
 
 **Create an ansible-vault file**
 
+- [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/secrets.yml "Vaulted")
+- [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/secrets-example.yml "Example")
+
 **Now you are ready to run your playbook**
 
 - The vault password is the password you used to create your vault
