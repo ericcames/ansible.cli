@@ -34,9 +34,8 @@ dnf install ansible-core
 mkdir -pv ansible/playbooks
 cd ansible/playbooks
 vi download_software.yml
-
-Ensure that the correct checksum value is used in this variable: aap_bundle_sha_value
 ```
+- Ensure that the correct checksum value is used in this variable: aap_bundle_sha_value
 - [download_software.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/download_software.yml "download_software.yml")
 
 **Create and inventory file**
