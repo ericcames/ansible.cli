@@ -42,8 +42,4 @@
       ansible.builtin.unarchive:
         src: ~/aap.tar.gz
         dest: ~/
-
-    - name: Ensure the aap bundle is opened up
-      ansible.builtin.unarchive:
-        src: ~/aap.tar
-        dest: ~/
+        remote_src: true
