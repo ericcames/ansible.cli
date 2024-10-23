@@ -47,7 +47,9 @@
     - name: Ensure we have the AAP bundle directory
       register: aap_bundle_dir
       changed_when: false
-      ansible.builtin.shell: ls -d ~/ansible-automation-platform-*
+      ansible.builtin.shell: ls -d ansible-automation-platform-*
+      args:
+        chdir: ~/
 
     - name: Print
       debug:
