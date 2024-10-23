@@ -25,12 +25,31 @@ Downloading Ansible Autmation Platform
 ![alt text](https://github.com/ericcames/ansible.cli/blob/main/images/CLIsha.png "Checksum")
 
 **Login to the server that we will be running the Ansible installer from**
+
 - [Register system with Red Hat customer protal](https://access.redhat.com/solutions/253273 "RHSM")
+- Run the following commands
 ```
 sudo -i
 dnf install ansible-core
 mkdir -pv ansible/playbooks
 cd ansible/playbooks
 vi download_software.yml
+
+Ensure that the correct checksum value is used in this variable: aap_bundle_sha_value
 ```
 - [download_software.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/download_software.yml "download_software.yml")
+
+**Create and inventory file**
+```
+echo localhost > inventory
+```
+
+**Create an ansible-vault file**
+
+**Now you are ready to run your playbook**
+
+- The vault password is the password you used to create your vault
+- Run the following command
+```
+ansible-playbook -i inventory download_software.yml --ask-vault-pass
+```
