@@ -47,6 +47,11 @@ echo localhost > inventory
 
 **Create an ansible-vault file**
 
+- Run the following command to create your secrets.yml file:
+```
+ansible-vault create secrets.yml
+```
+- Remember your vault password
 - [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/secrets.yml "Vaulted")
 - [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/secrets-example.yml "Example")
 
