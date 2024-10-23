@@ -2,7 +2,7 @@ Ansible CLI Tools
 =========
 Ansible command line tools.
 
-Downloading Ansible Autmation Platform
+Downloading Ansible Automation Platform
 =========
 
 **Generate an offline token from Red Hat**
