@@ -43,3 +43,12 @@
         src: ~/aap.tar.gz
         dest: ~/
         remote_src: true
+
+    - name: Ensure we have the AAP bundle directory
+      register: aap_bundle_dir
+      changed_when: false
+      ansible.builtin.shell: ls -d ~/ansible-automation-platform-*
+
+    - name: Print
+      debug:
+        var: aap_bundle_dir
