@@ -43,5 +43,7 @@
         src: ~/aap.tar.gz
         dest: ~/
 
-    - name: Untar the bundle
-      ansible.builtin.command: tar xvf ~/aap.tar
+    - name: Ensure the aap bundle is opened up
+      ansible.builtin.unarchive:
+        src: ~/aap.tar
+        dest: ~/
