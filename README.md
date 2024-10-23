@@ -23,3 +23,14 @@ Downloading Ansible Autmation Platform
   - 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
 
 ![alt text](https://github.com/ericcames/ansible.cli/blob/main/images/CLIsha.png "Checksum")
+
+**Login to the server that we will be running the Ansible installer from**
+- [Register system with Red Hat customer protal](https://access.redhat.com/solutions/253273 "RHSM")
+```
+sudo -i
+dnf install ansible-core
+mkdir -pv ansible/playbooks
+cd ansible/playbooks
+vi download_software.yml
+```
+- [download_software.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/download_software.yml "download_software.yml")
