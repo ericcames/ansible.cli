@@ -5,7 +5,7 @@ Ansible command line tools.
 Downloading Ansible Autmation Platform
 =========
 
-# Generate an offline token from Red Hat
+**Generate an offline token from Red Hat**
 
 - Login with your account that gives you access to ansible platform software.
 - [Generate Token](https://gitlab.com/mlowcher/F5_examples "Generate Token")
