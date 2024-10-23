@@ -54,3 +54,8 @@
     - name: Print
       debug:
         var: aap_bundle_dir.stdout
+
+    - name: Moving file to old name
+      ansible.builtin.shell: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+      args:
+        chdir: ~/
