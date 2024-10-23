@@ -8,11 +8,11 @@ Downloading Ansible Autmation Platform
 **Generate an offline token from Red Hat**
 
 - Login with your account that gives you access to ansible platform software.
-- [Generate Token](https://gitlab.com/mlowcher/F5_examples "Generate Token")
+- [Generate Token](https://access.redhat.com/management/api "Generate Token")
 - Click on the Generate Token button and make a note of your offline token.
 
 ![alt text](https://github.com/ericcames/aap.dailydemo.F5/blob/main/images/F5uipre.png "Pre Login")
-![alt text](https://github.com/ericcames/aap.dailydemo.F5/blob/main/images/F5uipost.png "Post Login")
+
 
 **The job logs contain the URL needed to login to the gui**
 ![alt text](https://github.com/ericcames/aap.dailydemo.F5/blob/main/images/F5joblog.png "Job Log")
