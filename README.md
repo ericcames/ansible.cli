@@ -11,10 +11,17 @@ Downloading Ansible Autmation Platform
 - [Generate Token](https://access.redhat.com/management/api "Generate Token")
 - Click on the Generate Token button and make a note of your offline token.
 
-![alt text](https://github.com/ericcames/ansible.cli/blob/main/images/CLItoken.png "Pre Login")
+![alt text](https://github.com/ericcames/ansible.cli/blob/main/images/CLItoken.png "Generate Token")
 
 
-**The job logs contain the URL needed to login to the gui**
+**Get the sha value for the software you want**
+
+- [Download Red Hat Ansible Automation Platform](https://access.redhat.com/downloads/content/480/ver=2.4/rhel---9/2.4/x86_64/product-software "Download Red Hat Ansible Automation Platform")
+- Select the correct version and architecture
+  - This example 2.4 RHEL 9 x86_64
+- Get the Checksum for “Ansible Automation Platform 2.4 Setup Bundle”
+  - 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
+
 ![alt text](https://github.com/ericcames/aap.dailydemo.F5/blob/main/images/F5joblog.png "Job Log")
 
 ```
@@ -59,59 +66,3 @@ f5demo
 
 **The Cleanup Schedule**
 ![alt text](https://github.com/ericcames/aap.dailydemo.F5/blob/main/images/F5cleanup.png "F5 Daily Demo Cleanup")<br>
-
-Day 2
-=========
-
-**Example Playbooks**
-- [F5 example playbooks](https://gitlab.com/mlowcher/F5_examples "F5 example playbooks")
-
-
-**Execution Environment**<br>
-- [F5_ee](https://quay.io/locust61/f5_ee:0.1 "F5 Execution Environment")
-```
-quay.io/locust61/f5_ee:0.1
-```
-f5-execution-environment.yml
-```
----
-version: 3
-
-images:
-  base_image:
-    name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel8:latest
-
-dependencies:
-  galaxy:
-    collections:
-      - f5networks.f5_modules
-      - f5networks.f5_bigip
-      - ansible.netcommon
-  system:
-    - pkgconf-pkg-config [platform:rpm]
-    - systemd-devel [platform:rpm]
-    - gcc [platform:rpm]
-    - python39-devel [platform:rpm]
-  python:
-    - packaging
-    - requests[security]
-    - xmltodict
-    - msgraph-sdk==1.0.0
-    - psycopg2-binary
-    - urllib3==1.26.15
-options:
-  package_manager_path: /usr/bin/microdnf
-```
-
-**A Network Credential is reguired for Day 2 ops**
-
-![alt text](https://github.com/ericcames/aap.dailydemo.F5/blob/main/images/F5networkcred.png "Daily Demo F5 Network credential")<br>
-
-
-# Looking for the Windows Daily Demo?
-
-- [AAP Daily Demo Windows](https://github.com/ericcames/aap.dailydemo.windows "AAP Daily Demo Windows")
-
-# Looking for the Linux Daily Demo?
-
-- [AAP Daily Demo Linux](https://github.com/ericcames/aap.dailydemo.linux "AAP Daily Demo Linux")
