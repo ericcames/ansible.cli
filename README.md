@@ -39,6 +39,8 @@ vi download_software.yml
 - [download_software.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/download_software.yml "download_software.yml")
 
 **Create and inventory file**
+
+- [inventory](https://github.com/ericcames/ansible.cli/blob/main/playbooks/inventory "inventory")
 ```
 echo localhost > inventory
 ```
