@@ -51,4 +51,4 @@
 
     - name: Print
       debug:
-        var: aap_bundle_dir
+        var: aap_bundle_dir.stdout
