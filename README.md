@@ -11,7 +11,7 @@ Downloading Ansible Autmation Platform
 - [Generate Token](https://access.redhat.com/management/api "Generate Token")
 - Click on the Generate Token button and make a note of your offline token.
 
-![alt text](https://github.com/ericcames/aap.dailydemo.F5/blob/main/images/F5uipre.png "Pre Login")
+![alt text](https://github.com/ericcames/ansible.cli/blob/main/images/CLItoken.png "Pre Login")
 
 
 **The job logs contain the URL needed to login to the gui**
