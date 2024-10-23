@@ -40,4 +40,4 @@
 
     - name: Print
       debug:
-        var: register
+        var: download_aap_tarball
