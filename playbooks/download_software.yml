@@ -42,3 +42,6 @@
       ansible.builtin.unarchive:
         src: ~/aap.tar.gz
         dest: ~/
+
+    - name: Untar the bundle
+      ansible.builtin.command: tar xvf ~/aap.tar
