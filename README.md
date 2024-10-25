@@ -62,3 +62,14 @@ ansible-vault create secrets.yml
 ```
 ansible-playbook -i inventory download_software.yml --ask-vault-pass
 ```
+
+**Advanced users**
+```
+sudo -i
+git clone https://github.com/ericcames/ansible.cli.git
+cd ansible.cli/playbooks
+rm secrets.yml
+ansible-vault create secrets.yml
+ansible-playbook -i inventory download_software.yml --ask-vault-pass
+cd
+```
