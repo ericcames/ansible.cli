@@ -36,6 +36,5 @@
         var: ansible_facts['userspace_architecture']
 
     - name: Print out root disk size
-      loop: ansible_facts['devices']['nvme0n1']['partitions']
       ansible.builtin.debug:
-        msg: "{{ item }}"
+        msg: "{{ ansible_facts['devices']['nvme0n1']['partitions'] }}"
