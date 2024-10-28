@@ -15,7 +15,6 @@
       ansible.builtin.debug:
         msg: "{{ fqdn }}"
 
-
     - name: Print out total memory
       ansible.builtin.debug:
         var: ansible_memtotal_mb
@@ -26,8 +25,12 @@
 
     - name: Print out Ansible Distribution
       ansible.builtin.debug:
-        var: ansible_distribution ansible_distribution_version
+        var: ansible_distribution
+
+    - name: Print out Ansible distribution_version
+      ansible.builtin.debug:
+        var: distribution_version
 
     - name: Print out Architecture
       ansible.builtin.debug:
-        var: ansible_userspace_architecture
+        var: userspace_architecture
