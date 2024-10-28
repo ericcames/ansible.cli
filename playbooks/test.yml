@@ -36,6 +36,6 @@
         var: ansible_facts['userspace_architecture']
 
 
-    - name: Print out disk size
+    - name: Print out disk keys
       ansible.builtin.debug:
         msg: "{{ ansible_devices.keys() | list }}"
