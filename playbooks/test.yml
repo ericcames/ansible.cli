@@ -36,6 +36,7 @@
         var: ansible_facts['userspace_architecture']
 
     - name: Get disk info
+      wantlist: true
       ansible.builtin.set_fact:
         my_disks: "{{ ansible_devices.keys() | reject('match', '^loop(.*)$') | list }}"
 
