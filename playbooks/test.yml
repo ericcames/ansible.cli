@@ -37,6 +37,5 @@
 
     - name: Print out root disk size
       loop: ansible_facts['devices']['nvme0n1']['partitions']
-      when: item['links']['labels'] == 'root'
       ansible.builtin.debug:
-        var: item['size']
+        msg: "{{ item }}"
