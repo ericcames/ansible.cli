@@ -29,8 +29,8 @@
 
     - name: Print out Ansible distribution_version
       ansible.builtin.debug:
-        var: distribution_version
+        var: ansible_facts['distribution_version']
 
     - name: Print out Architecture
       ansible.builtin.debug:
-        var: userspace_architecture
+        var: ansible_facts['userspace_architecture']
