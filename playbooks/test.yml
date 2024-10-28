@@ -42,5 +42,6 @@
                         list }}"
 
     - name: Print out disk info
+      loop: my_disks
       ansible.builtin.debug:
-        var: my_disks
+        var: item
