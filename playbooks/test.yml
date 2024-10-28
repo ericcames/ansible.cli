@@ -25,7 +25,7 @@
 
     - name: Print out Ansible Distribution
       ansible.builtin.debug:
-        msg: "{{ ansible_distribution ansible_facts['distribution_version'] }}"
+        msg: "{{ ansible_distribution ansible_distribution_version }}"
 
     - name: Print out Architecture
       ansible.builtin.debug:
