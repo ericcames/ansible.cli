@@ -1,0 +1,32 @@
+- name: Testing stuff
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    aap_bundle_sha_value: 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
+  vars_prompt:
+    - name: fqdn
+      prompt: What is your fully qualified domain name?
+      private: false
+
+  tasks:
+
+    - name: Print out the fqdn
+      ansible.builtin.debug:
+        msg: "{{ fqdn }}"
+
+    - name: Print out total memory
+      ansible.builtin.debug:
+        msg: "ansible_facts['ansible_memtotal_mb']"
+
+    - name: Print out CPU count
+      ansible.builtin.debug:
+        msg: "ansible_facts['ansible_processor_count']"
+
+    - name: Print out Ansible Distribution
+      ansible.builtin.debug:
+        msg: "ansible_facts['ansible_distribution'] ansible_facts['distribution_version']"
+
+    - name: Print out Architecture
+      ansible.builtin.debug:
+        msg: "ansible_facts['userspace_architecture']"
