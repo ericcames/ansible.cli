@@ -37,9 +37,7 @@
 
     - name: Get disk info
       ansible.builtin.set_fact:
-        my_disks: "{{ ansible_devices.keys() |
-                        reject('match', '^loop(.*)$') |
-                        list }}"
+        my_disks: "{{ ansible_devices.keys() | reject('match', '^loop(.*)$') | list }}"
 
     - name: Print out disk info
       loop: my_disks
