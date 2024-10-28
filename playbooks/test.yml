@@ -35,11 +35,8 @@
       ansible.builtin.debug:
         var: ansible_facts['userspace_architecture']
 
-    - name: Get disk info
-      ansible.builtin.set_fact:
-        my_disks: "{{ ansible_devices.keys() | reject('match', '^loop(.*)$') | wantlist }}"
 
-    - name: Print out disk info
-      loop: my_disks
+    - name: Print out disk size
+      loop: "{{ ansible_devices.keys() | list }}"
       ansible.builtin.debug:
-        var: item
+        msg: "{{ ansible_devices[item].size }}"
