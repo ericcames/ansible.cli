@@ -17,16 +17,16 @@
 
     - name: Print out total memory
       ansible.builtin.debug:
-        msg: "ansible_facts['ansible_memtotal_mb']"
+        var: ansible_facts['ansible_memtotal_mb']
 
     - name: Print out CPU count
       ansible.builtin.debug:
-        msg: "ansible_facts['ansible_processor_count']"
+        var: ansible_facts['ansible_processor_count']
 
     - name: Print out Ansible Distribution
       ansible.builtin.debug:
-        msg: "ansible_facts['ansible_distribution'] ansible_facts['distribution_version']"
+        var: ansible_facts['ansible_distribution'] ansible_facts['distribution_version']
 
     - name: Print out Architecture
       ansible.builtin.debug:
-        msg: "ansible_facts['userspace_architecture']"
+        var: ansible_facts['userspace_architecture']
