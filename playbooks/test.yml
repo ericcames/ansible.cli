@@ -34,3 +34,7 @@
     - name: Print out Architecture
       ansible.builtin.debug:
         var: ansible_facts['userspace_architecture']
+
+    - name: Print out root disk size
+      ansible.builtin.debug:
+        var: ansible_devices['partions']['size']
