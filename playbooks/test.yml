@@ -37,6 +37,5 @@
 
 
     - name: Print out disk size
-      loop: "{{ ansible_devices.keys() | list }}"
       ansible.builtin.debug:
-        msg: "{{ ansible_devices[item].size }}"
+        msg: "{{ ansible_devices.keys() | list }}"
