@@ -42,6 +42,5 @@
                         list }}"
 
     - name: Print out disk info
-      loop: my_disks
       ansible.builtin.debug:
-        msg: "{{ item }} {{ ansible_devices[item].size }}"
+        var: my_disks
