@@ -37,4 +37,4 @@
 
     - name: Print out root disk size
       ansible.builtin.debug:
-        var: ansible_facts['devices']['*']['partitions']
+        var: ansible_facts['devices']['nvme0n1']['partitions']
