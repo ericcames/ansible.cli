@@ -52,3 +52,15 @@
     - name: Print out disk partitions
       ansible.builtin.debug:
         var: partitions
+
+    - name: Print out disk partitions
+      ansible.builtin.debug:
+        var: keys
+
+    - name: Print out disk partitions
+      ansible.builtin.debug:
+        var: values
+
+    - name: Print out disk partitions
+      ansible.builtin.debug:
+        var: dictionary
