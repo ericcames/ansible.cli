@@ -52,4 +52,4 @@
     - name: Print out disk partitions
       loop: "{{ ansible_devices['nvme0n1']['partitions']['keys']() | list }}"
       ansible.builtin.debug:
-        var: item
+        var: item.size
