@@ -4,6 +4,7 @@
   gather_facts: true
   vars_files:
     - ../files/distributions.yml
+    - ../files/vault.yml
   vars_prompt:
     - name: controller_url
       prompt: What is your server's fully qualified domain name?
