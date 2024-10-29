@@ -104,7 +104,7 @@
         - name: Creating the new inventory file
           ansible.builtin.template:
             src: ../templates/legacy_aap_inventory_controller_file.j2
-            dest: "{{ aap_bundle_dir.stdout }}/inventory"
+            dest: "~/{{ aap_bundle_dir.stdout }}/inventory"
             owner: root
             group: root
             mode: "0644"
@@ -135,6 +135,46 @@
             owner: root
             group: root
             mode: ug+rwX,o=
+
+        - name: Ensure we have the AAP bundle
+          register: download_aap_tarball
+          until: download_aap_tarball is not failed
+          retries: 5
+          delay: 20
+          ansible.builtin.get_url:
+            url: https://api.access.redhat.com/management/v1/images/{{ checksum }}/download
+            headers:
+              accept: application/json
+              Authorization: Bearer {{ access_token.json.access_token }}
+            dest: ~/aap.tar.gz
+            checksum: "sha256: {{ checksum }}"
+
+        - name: Ensure the aap bundle is opened up
+          ansible.builtin.unarchive:
+            src: ~/aap.tar.gz
+            dest: ~/
+            remote_src: true
+
+        - name: Ensure we have the AAP bundle directory
+          register: aap_bundle_dir
+          changed_when: false
+          ansible.builtin.shell: ls -d ansible-automation-platform-*
+          args:
+            chdir: ~/
+
+        - name: Moving file to old name
+          ansible.builtin.shell: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+          args:
+            chdir: ~/
+
+        - name: Creating the new inventory file
+          ansible.builtin.template:
+            src: ../templates/legacy_aap_inventory_controller_file.j2
+            dest: "{{ aap_bundle_dir.stdout }}/inventory"
+            owner: root
+            group: root
+            mode: "0644"
+            backup: true
 
         # - name: Making sure the public keys are in place
         #   loop: "{{ keys }}"
