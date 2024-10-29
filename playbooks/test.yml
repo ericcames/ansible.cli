@@ -53,4 +53,4 @@
       loop: "{{ ansible_devices['nvme0n1']['partitions']['keys']() | list }}"
       # when: ansible_devices['nvme0n1']['partitions'][item]['links']['labels'] == 'root'
       ansible.builtin.debug:
-        msg: "{{ ansible_devices['nvme0n1']['partitions'][item]['size']  ansible_devices['nvme0n1']['partitions'][item]['labels'] }}"
+        msg: "{{ ansible_devices['nvme0n1']['partitions'][item]['size'] }}"
