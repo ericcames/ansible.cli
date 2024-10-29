@@ -10,9 +10,9 @@
       private: false
 
     - name: aap_distro
-      prompt: "Which Ansible Automation Platform distro to use 2.4 or 2.5? default: '2.5'"
+      prompt: "Which Ansible Automation Platform distro to use 2.4 or 2.5? default: 2.5"
       private: false
-      default: '2.5'
+      default: "2.5"
 
   tasks:
 
@@ -22,7 +22,7 @@
 
     - name: Print checksum for 2.5
       loop: "{{ distributions }}"
-      when: item['name'] == 2.5
+      when: item['name'] == aap_distro
       ansible.builtin.debug:
         msg: "{{ item['aap_sha_value'] }}"
 
