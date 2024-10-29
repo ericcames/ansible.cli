@@ -16,12 +16,17 @@
 
   tasks:
 
-    - name: Print checksum
-      register: checksum
+    # - name: Print checksum
+    #   loop: "{{ distributions }}"
+    #   when: item['name'] == aap_distro
+    #   ansible.builtin.debug:
+    #     msg: "{{ item['aap_sha_value'] }}"
+
+    - name: Get our checksum
       loop: "{{ distributions }}"
       when: item['name'] == aap_distro
-      ansible.builtin.debug:
-        msg: "{{ item['aap_sha_value'] }}"
+      ansible.builtin.set_fact:
+        checksum: "{{ item['aap_sha_value'] }}"
 
     - name: Print out system checks
       ansible.builtin.debug:
