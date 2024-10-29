@@ -60,7 +60,7 @@
         - name: Ensure we have the AAP bundle
           register: download_aap_tarball
           until: download_aap_tarball is not failed
-          retries: 15
+          retries: 5
           delay: 20
           ansible.builtin.get_url:
             url: https://api.access.redhat.com/management/v1/images/{{ checksum }}/download
