@@ -173,7 +173,7 @@
 
         - name: Creating the new inventory file
           ansible.builtin.template:
-            src: ../templates/templates/containerized_aap_25_inventory-growth.j2
+            src: ../templates/containerized_aap_25_inventory-growth.j2
             dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
             owner: ansible-svc
             group: ansible-svc
