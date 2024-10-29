@@ -146,31 +146,35 @@
             headers:
               accept: application/json
               Authorization: Bearer {{ access_token.json.access_token }}
-            dest: ~/aap.tar.gz
+            dest: ~ansible-svc/aap.tar.gz
             checksum: "sha256: {{ checksum }}"
+            owner: ansible-svc
+            group: ansible-svc
 
         - name: Ensure the aap bundle is opened up
           ansible.builtin.unarchive:
-            src: ~/aap.tar.gz
-            dest: ~/
+            src: ~ansible-svc/aap.tar.gz
+            dest: ~ansible-svc/
             remote_src: true
+            owner: ansible-svc
+            group: ansible-svc
 
         - name: Ensure we have the AAP bundle directory
           register: aap_bundle_dir
           changed_when: false
           ansible.builtin.shell: ls -d ansible-automation-platform-*
           args:
-            chdir: ~/
+            chdir: ~ansible-svc/
 
         - name: Moving file to old name
           ansible.builtin.shell: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
           args:
-            chdir: ~/
+            chdir: ~ansible-svc/
 
         - name: Creating the new inventory file
           ansible.builtin.template:
-            src: ../templates/legacy_aap_inventory_controller_file.j2
-            dest: "{{ aap_bundle_dir.stdout }}/inventory"
+            src: ../templates/templates/containerized_aap_25_inventory-growth.j2
+            dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
             owner: root
             group: root
             mode: "0644"
