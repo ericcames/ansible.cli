@@ -32,18 +32,7 @@
           - "Total system memory: {{ ansible_memtotal_mb }} mb"
           - "Total cpu count: {{ ansible_processor_count }}"
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
-
-    - name: Print out Ansible Distribution
-      ansible.builtin.debug:
-        var: ansible_distribution
-
-    - name: Print out Ansible distribution_version
-      ansible.builtin.debug:
-        var: ansible_facts['distribution_version']
-
-    - name: Print out Architecture
-      ansible.builtin.debug:
-        var: ansible_facts['userspace_architecture']
+          - "Total disk space: {{ ansible_devices['nvme0n1']['partitions']['nvme0n1p4']['size'] }} gb"
 
     - name: Print out disk partitions
       loop: "{{ ansible_devices['nvme0n1']['partitions']['keys']() | list }}"
