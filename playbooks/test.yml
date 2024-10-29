@@ -2,8 +2,8 @@
   hosts: localhost
   connection: local
   gather_facts: true
-  vars:
-    aap_sha_value: 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
+  vars_files:
+    - files/distributions.yml
   vars_prompt:
     - name: controller_url
       prompt: What is your server's fully qualified domain name?
@@ -21,8 +21,10 @@
         msg: "{{ controller_url }}"
 
     - name: Print aap_distro
+      loop: distributions
+      when: item['name'] == "{{ aap_distro }}"
       ansible.builtin.debug:
-        msg: "{{ aap_distro }}"
+        msg: "{{ item['aap_sha_value']}}"
 
     - name: Print out total memory
       ansible.builtin.debug:
