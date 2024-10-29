@@ -52,4 +52,4 @@
     - name: Print out disk partitions
       loop: "{{ partitions | list }}"
       ansible.builtin.debug:
-        msg: "{{ item['size'] }}"
+        msg: "{{ item }}"
