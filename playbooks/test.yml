@@ -10,9 +10,9 @@
       private: false
 
     - name: aap_distro
-      prompt: "Which Ansible Automation Platform distro to use 2.4 or 2.5? default: 2.5"
+      prompt: "Which Ansible Automation Platform distro to use 2.4, 2.5, 2.4containerized, 2.5containerized? default: 2.5containerized"
       private: false
-      default: "2.5"
+      default: "2.5containerized"
 
   tasks:
 
