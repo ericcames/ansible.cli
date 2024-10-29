@@ -4,7 +4,7 @@ distributions:
     rh_distro: 9.2
     architecture: x86_64
     aap_sha_value: c3ee309d7bc1a93640daa682f6b7c2d240588595344de2eb3b6295bf36496f56
-  - name: 2.5
+  - name: '2.5'
     rh_distro: 8.8
     architecture: x86_64
     aap_sha_value: f4cd1a1bca80ea5b76b649db2597e85ec44eb98e427a99384a16a959e52360c2
@@ -12,7 +12,7 @@ distributions:
     rh_distro: 9.2
     architecture: x86_64
     aap_sha_value: 0781cab21cd21992a22bb8ed6f9b1018dff0d092d5882e1e9aafbd48337f6662
-  - name: 2.4
+  - name: '2.4'
     rh_distro: 8.8
     architecture: x86_64
     aap_sha_value: 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70

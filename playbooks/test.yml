@@ -20,7 +20,7 @@
       ansible.builtin.debug:
         msg: "{{ controller_url }}"
 
-    - name: Print checksum for 2.5
+    - name: Print checksum
       loop: "{{ distributions }}"
       when: item['name'] == aap_distro
       ansible.builtin.debug:
