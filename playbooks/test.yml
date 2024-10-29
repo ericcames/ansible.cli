@@ -21,7 +21,7 @@
         msg: "{{ controller_url }}"
 
     - name: Print aap_distro
-      loop: distributions
+      loop: "{{ distributions }}"
       when: item['name'] == aap_distro
       ansible.builtin.debug:
         msg: "{{ item['aap_sha_value'] }}"
