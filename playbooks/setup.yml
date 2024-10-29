@@ -12,7 +12,7 @@
       sudoers_account: true
       user_comment: Service Account
       # user_password: vaulted
-      user_home: /var/lib/awx
+      user_home: /home/ansible-svc
 
   vars_files:
     - ../files/distributions.yml
