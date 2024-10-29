@@ -22,9 +22,9 @@
 
     - name: Print aap_distro
       loop: distributions
-      when: item['name'] == "{{ aap_distro }}"
+      when: item['name'] == aap_distro
       ansible.builtin.debug:
-        msg: "{{ item['aap_sha_value']}}"
+        msg: "{{ item['aap_sha_value'] }}"
 
     - name: Print out total memory
       ansible.builtin.debug:
