@@ -87,3 +87,12 @@
           ansible.builtin.shell: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
           args:
             chdir: ~/
+
+        - name: Creating the new inventory file
+          ansible.builtin.template:
+            src: ../templates/legacy_aap_inventory_controller_file.j2
+            dest: "{{ aap_bundle_dir.stdout }}/inventory"
+            owner: root
+            group: root
+            mode: "0644"
+            backup: true
