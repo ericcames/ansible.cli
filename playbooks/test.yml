@@ -22,7 +22,7 @@
 
     - name: Print aap_distro
       loop: "{{ distributions }}"
-      when: aap_distro == item['name']
+      when: aap_distro == 'item['name']'
       ansible.builtin.debug:
         msg: "{{ item['aap_sha_value'] }}"
 
