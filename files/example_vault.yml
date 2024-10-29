@@ -1,12 +1,17 @@
 ---
+# Always need an offline token to get our software
+offline_token: OFFLINE_TOKEN_HERE
+
+# Always need our Red Hat Customer Portal creds to get our sofware
+registry_username: MickeyMouse
+registry_password: PASSWORD
+
+# Containerized Ansible inventory variables
 controller_username: admin
 controller_password: PASSWORD
 
 postgresql_admin_username: postgres
 postgresql_admin_password: PASSWORD
-
-registry_username: MickeyMouse
-registry_password: PASSWORD
 
 gateway_admin_password: PASSWORD
 gateway_pg_password: PASSWORD
@@ -20,4 +25,7 @@ hub_pg_password: PASSWORD
 eda_admin_password: PASSWORD
 eda_pg_password: PASSWORD
 
-offline_token: offline_token GOES HERE
+# Legacy Ansible inventory variables
+admin_password: PASSWORD
+
+pg_password: PASSWORD

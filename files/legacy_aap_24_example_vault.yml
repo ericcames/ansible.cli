@@ -1,9 +1,0 @@
----
-admin_password: PASSWORD
-
-pg_password: PASSWORD
-
-registry_username: MickeyMouse
-registry_password: PASSWORD
-
-offline_token: offline_token GOES HERE

@@ -31,3 +31,7 @@
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
           - "Total disk space: {{ ansible_devices['nvme0n1']['partitions']['nvme0n1p4']['size'] }}"
           - "We are installing {{ aap_distro }} AAP the checksum is {{ checksum }}"
+
+    - name: Check in with user
+      ansible.builtin.pause:
+        prompt: Please confirm that it is safe to proceed. Press return to continue. Press Ctrl+c and then "a" to abort
