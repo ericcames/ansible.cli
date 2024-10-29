@@ -10,17 +10,14 @@
       private: false
 
     - name: aap_distro
-      prompt: "Which Ansible Automation Platform distro to use 2.4, 2.5, 2.4containerized, 2.5containerized? default: 2.5containerized"
+      prompt: "Which Ansible Automation Platform (AAP) distro to use 2.4, 2.5, 2.4containerized, 2.5containerized? default: 2.5containerized"
       private: false
       default: "2.5containerized"
 
   tasks:
 
-    - name: Print out the fqdn
-      ansible.builtin.debug:
-        msg: "{{ controller_url }}"
-
     - name: Print checksum
+      register: checksum
       loop: "{{ distributions }}"
       when: item['name'] == aap_distro
       ansible.builtin.debug:
@@ -29,7 +26,9 @@
     - name: Print out system checks
       ansible.builtin.debug:
         msg:
+          - "Our stand alone controller_url: {{ controller_url }}"
           - "Total system memory: {{ ansible_memtotal_mb }} mb"
           - "Total cpu count: {{ ansible_processor_count }}"
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
           - "Total disk space: {{ ansible_devices['nvme0n1']['partitions']['nvme0n1p4']['size'] }}"
+          - "We are installing {{ controller_url }} AAP the checksum is {{ checksum }}"
