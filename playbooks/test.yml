@@ -50,6 +50,6 @@
         msg: "{{ ansible_devices[item]['partitions']['keys']() | list }}"
 
     - name: Print out disk partitions
-      loop: "{{ partitions.keys() | list }}"
+      loop: "{{ partitions.holders() | list }}"
       ansible.builtin.debug:
         msg: "{{ item['size'] }}"
