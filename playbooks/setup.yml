@@ -97,11 +97,11 @@
             mode: "0644"
             backup: true
 
-      - name: Preparing for a containerized install
-        when: aap_distro == "2.4containerized" or
-              aap_distro == "2.5containerized"
-        block:
+    - name: Preparing for a containerized install
+      when: aap_distro == "2.4containerized" or
+            aap_distro == "2.5containerized"
+      block:
 
-          - name: Print
-            debug:
-              msg: "here i am"
+        - name: Print
+          debug:
+            msg: "here i am"
