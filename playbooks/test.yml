@@ -16,12 +16,6 @@
 
   tasks:
 
-    # - name: Print checksum
-    #   loop: "{{ distributions }}"
-    #   when: item['name'] == aap_distro
-    #   ansible.builtin.debug:
-    #     msg: "{{ item['aap_sha_value'] }}"
-
     - name: Get our checksum
       loop: "{{ distributions }}"
       when: item['name'] == aap_distro
