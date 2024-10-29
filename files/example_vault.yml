@@ -6,6 +6,10 @@ offline_token: OFFLINE_TOKEN_HERE
 registry_username: MickeyMouse
 registry_password: PASSWORD
 
+# Dedicated non root account for containerized aap
+# User password
+user_password: PASSWORD
+
 # Containerized Ansible inventory variables
 controller_username: admin
 controller_password: PASSWORD

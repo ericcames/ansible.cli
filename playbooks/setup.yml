@@ -11,7 +11,7 @@
     - name: ansible-svc
       sudoers_account: true
       user_comment: Service Account
-      user_password: Ansible-r0cks!
+      # user_password: vaulted
       user_home: /var/lib/awx
 
   vars_files:
