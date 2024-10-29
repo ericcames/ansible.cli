@@ -35,3 +35,54 @@
     - name: Check in with user
       ansible.builtin.pause:
         prompt: Please confirm that it is safe to proceed. Press return to continue. Press Ctrl+c and then "a" to abort
+
+    - name: Preparing for a Legacy install
+      when: aap_distro == 2.4 or
+            aap_distro == 2.5
+      block:
+
+        - name: Ensure we have a access token the Red Hat Customer portal
+          register: access_token
+          until: access_token is not failed
+          retries: 1
+          delay: 20
+          ansible.builtin.uri:
+            url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+            method: POST
+            body_format: form-urlencoded
+            return_content: true
+            body:
+              grant_type: refresh_token
+              client_id: rhsm-api
+              refresh_token: "{{ offline_token }}"
+
+        - name: Ensure we have the AAP bundle
+          register: download_aap_tarball
+          until: download_aap_tarball is not failed
+          retries: 15
+          delay: 20
+          ansible.builtin.get_url:
+            url: https://api.access.redhat.com/management/v1/images/{{ checksum }}/download
+            headers:
+              accept: application/json
+              Authorization: Bearer {{ access_token.json.access_token }}
+            dest: ~/aap.tar.gz
+            checksum: "sha256: {{ checksum }}"
+
+        - name: Ensure the aap bundle is opened up
+          ansible.builtin.unarchive:
+            src: ~/aap.tar.gz
+            dest: ~/
+            remote_src: true
+
+        - name: Ensure we have the AAP bundle directory
+          register: aap_bundle_dir
+          changed_when: false
+          ansible.builtin.shell: ls -d ansible-automation-platform-*
+          args:
+            chdir: ~/
+
+        - name: Moving file to old name
+          ansible.builtin.shell: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+          args:
+            chdir: ~/
