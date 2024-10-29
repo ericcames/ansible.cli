@@ -172,8 +172,19 @@
             chdir: ~ansible-svc/
 
         - name: Creating the new inventory file
+          when: aap_distro == "2.5containerized"
           ansible.builtin.template:
             src: ../templates/containerized_aap_25_inventory-growth.j2
+            dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
+            owner: ansible-svc
+            group: ansible-svc
+            mode: "0644"
+            backup: true
+
+        - name: Creating the new inventory file
+          when: aap_distro == "2.4containerized"
+          ansible.builtin.template:
+            src: ../templates/containerized_aap_24_inventory_controller_file.j2
             dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
             owner: ansible-svc
             group: ansible-svc
