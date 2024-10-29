@@ -42,4 +42,4 @@
     - name: Print out disk partitions
       loop: "{{ ansible_devices.keys() | list }}"
       ansible.builtin.debug:
-        msg: "{{ ansible_devices[item]['keys']() | list }}"
+        msg: "{{ ansible_devices[item]['partitions']['keys']() | list }}"
