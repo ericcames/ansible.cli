@@ -38,8 +38,8 @@
         prompt: Please confirm that it is safe to proceed. Press return to continue. Press Ctrl+c and then "a" to abort
 
     - name: Preparing for a Legacy install
-      when: aap_distro == 2.4 or
-            aap_distro == 2.5
+      when: aap_distro == '2.4' or
+            aap_distro == '2.5'
       block:
 
         - name: Ensure we have a access token the Red Hat Customer portal
