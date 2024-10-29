@@ -4,7 +4,6 @@
   gather_facts: true
   vars:
     aap_sha_value: 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
-    total_memory: ansible_memtotal_mb
   vars_prompt:
     - name: controller_url
       prompt: What is your server's fully qualified domain name?
@@ -27,7 +26,7 @@
 
     - name: Print out total memory
       ansible.builtin.debug:
-        var: total_memory
+        var: ansible_memtotal_mb
 
     - name: Print out CPU count
       ansible.builtin.debug:
