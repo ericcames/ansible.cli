@@ -29,12 +29,9 @@
     - name: Print out system checks
       ansible.builtin.debug:
         msg:
-          - "Total system memory:{{ ansible_memtotal_mb }} mb"
-          - "Total cpu count:{{ ansible_processor_count }}"
-
-    - name: Print out CPU count
-      ansible.builtin.debug:
-        var: ansible_processor_count
+          - "Total system memory: {{ ansible_memtotal_mb }} mb"
+          - "Total cpu count: {{ ansible_processor_count }}"
+          - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
 
     - name: Print out Ansible Distribution
       ansible.builtin.debug:
