@@ -1,0 +1,21 @@
+---
+controller_username: admin
+controller_password: PASSWORD
+
+postgresql_admin_username: postgres
+postgresql_admin_password: PASSWORD
+
+registry_username: MickeyMouse
+registry_password: PASSWORD
+
+gateway_admin_password: PASSWORD
+gateway_pg_password: PASSWORD
+
+controller_admin_password: PASSWORD
+controller_pg_password: PASSWORD
+
+hub_admin_password: PASSWORD
+hub_pg_password: PASSWORD
+
+eda_admin_password: PASSWORD
+eda_pg_password: PASSWORD

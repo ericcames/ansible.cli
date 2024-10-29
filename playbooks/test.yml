@@ -1,19 +1,28 @@
-- name: Testing stuff
+- name: Setting up the Ansible Automation Platform install
   hosts: localhost
   connection: local
   gather_facts: true
   vars:
     aap_bundle_sha_value: 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
   vars_prompt:
-    - name: fqdn
-      prompt: What is your fully qualified domain name?
+    - name: controller_url
+      prompt: What is your servers fully qualified domain name?
       private: false
+
+    - name: aap_distro
+      prompt: "Which Ansible Automation Platform distro to use 2.4 or 2.5? default: '2.5'"
+      private: false
+      default: '2.5'
 
   tasks:
 
     - name: Print out the fqdn
       ansible.builtin.debug:
-        msg: "{{ fqdn }}"
+        msg: "{{ controller_url }}"
+
+    - name: Print aap_distro
+      ansible.builtin.debug:
+        msg: "{{ aap_distro }}"
 
     - name: Print out total memory
       ansible.builtin.debug:
@@ -43,6 +52,6 @@
 
     - name: Print out disk partitions
       loop: "{{ ansible_devices['nvme0n1']['partitions']['keys']() | list }}"
-      when: ansible_devices['nvme0n1']['partitions'][item]['links']['labels'] == 'root'
+      # when: ansible_devices['nvme0n1']['partitions'][item]['links']['labels'] == 'root'
       ansible.builtin.debug:
         msg: "{{ ansible_devices['nvme0n1']['partitions'][item]['links']['labels'] }}"
