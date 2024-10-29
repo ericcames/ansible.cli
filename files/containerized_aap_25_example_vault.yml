@@ -19,3 +19,5 @@ hub_pg_password: PASSWORD
 
 eda_admin_password: PASSWORD
 eda_pg_password: PASSWORD
+
+offline_token: offline_token GOES HERE
