@@ -22,7 +22,7 @@
 
     - name: Print checksum for 2.5
       loop: "{{ distributions }}"
-      when: aap_distro == 2.5
+      when: item['name'] == 2.5
       ansible.builtin.debug:
         msg: "{{ item['aap_sha_value'] }}"
 
