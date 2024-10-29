@@ -175,8 +175,8 @@
           ansible.builtin.template:
             src: ../templates/templates/containerized_aap_25_inventory-growth.j2
             dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
-            owner: root
-            group: root
+            owner: ansible-svc
+            group: ansible-svc
             mode: "0644"
             backup: true
 
