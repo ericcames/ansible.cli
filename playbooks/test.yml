@@ -4,6 +4,11 @@
   gather_facts: true
   vars:
     aap_bundle_sha_value: 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
+    partitions: "{{ ansible_devices | dict2items | selectattr('key','match','^nvme0n1.*') |
+                    map(attribute='value.partitions') }}"
+    keys: "{{ partitions | json_query('[].keys(@)') | flatten }}"
+    values: "{{ partitions | json_query('[].*.{holders: holders, size: size}') | flatten }}"
+    dictionary: "{{ dict(keys|zip(values)) }}"
   vars_prompt:
     - name: fqdn
       prompt: What is your fully qualified domain name?
@@ -43,3 +48,7 @@
       loop: "{{ ansible_devices.keys() | list }}"
       ansible.builtin.debug:
         msg: "{{ ansible_devices[item]['partitions']['keys']() | list }}"
+
+    - name: Print out disk partitions
+      ansible.builtin.debug:
+        var: partitions
