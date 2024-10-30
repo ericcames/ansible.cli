@@ -33,8 +33,8 @@ dnf install ansible-core
 git clone https://github.com/ericcames/ansible.cli.git
 
 ```
-- Ensure that the correct checksum value is used in this variable: aap_bundle_sha_value
-- [download_software.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/download_software.yml "download_software.yml")
+- Ensure that the correct checksum values are used in this variable: aap_sha_value for the distro you are planning to load
+- [download_software.yml](https://github.com/ericcames/ansible.cli/blob/main/files/distributions.yml "download_software.yml")
 
 **Create an ansible-vault file**
 
