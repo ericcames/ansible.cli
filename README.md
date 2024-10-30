@@ -31,7 +31,6 @@ Downloading Ansible Automation Platform
 sudo -i
 dnf install ansible-core
 git clone https://github.com/ericcames/ansible.cli.git
-
 ```
 - Ensure that the correct checksum values are used in this variable: aap_sha_value for the distro you are planning to load
 - [distributions.yml](https://github.com/ericcames/ansible.cli/blob/main/files/distributions.yml "distributions.yml")
