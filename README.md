@@ -39,16 +39,31 @@ git clone https://github.com/ericcames/ansible.cli.git
 
 - Run the following command to create your vault.yml file:
 ```
+cd ansible.cli/files
 ansible-vault create vault.yml
 ```
 - Remember your vault password
 - [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/files/vault.yml "Vaulted")
 - [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/files/example_vault.yml "Example")
 
-**Now you are ready to run your playbook**
+**Now you are ready to run setup.yml playbook**
 
 - The vault password is the password you used to create your vault
 - Run the following command
 ```
 ansible-playbook -i inventory setup.yml --ask-vault-pass
+```
+
+**Time to install ansible automation platform**
+
+- If you are using the containerized version logout and log back in as the ansible-svc user
+
+Legacy Ansible Platform install command line with vaulted creds
+```
+./setup.sh -e@vault.yml -- --ask-vault-pass
+```
+
+Containerized Ansible Platform install command line with vaulted creds
+```
+ansible-playbook -i inventory ansible.containerized_installer.install -e@ames_vault.yml --ask-vault-pass
 ```
