@@ -72,6 +72,6 @@ cd ~/ansible-platform*
 
 Containerized Ansible Platform install command line with vaulted creds
 ```
-cd ~/ansible-platform*
+cd /home/ansible-svc/ansible-platform*
 ansible-playbook -i inventory-growth ansible.containerized_installer.install -e@vault.yml --ask-vault-pass
 ```
