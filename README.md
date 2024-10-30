@@ -65,5 +65,5 @@ Legacy Ansible Platform install command line with vaulted creds
 
 Containerized Ansible Platform install command line with vaulted creds
 ```
-ansible-playbook -i inventory ansible.containerized_installer.install -e@ames_vault.yml --ask-vault-pass
+ansible-playbook -i inventory ansible.containerized_installer.install -e@vault.yml --ask-vault-pass
 ```
