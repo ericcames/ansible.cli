@@ -62,14 +62,16 @@ ansible-playbook -i inventory playbooks/setup.yml --ask-vault-pass
 
 **Time to install ansible automation platform**
 
-- If you are using the containerized version logout and log back in as the ansible-svc user
-
 Legacy Ansible Platform install command line with vaulted creds
 ```
+cd ~/ansible-platform*
 ./setup.sh -e@vault.yml -- --ask-vault-pass
 ```
 
+- If you are using the containerized version logout and log back in as the ansible-svc user
+
 Containerized Ansible Platform install command line with vaulted creds
 ```
+cd ~/ansible-platform*
 ansible-playbook -i inventory ansible.containerized_installer.install -e@vault.yml --ask-vault-pass
 ```
