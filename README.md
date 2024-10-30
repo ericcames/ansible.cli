@@ -13,7 +13,6 @@ Downloading Ansible Automation Platform
 
 ![alt text](https://github.com/ericcames/ansible.cli/blob/main/images/CLItoken.png "Generate Token")
 
-
 **Get the sha value for the software you want**
 
 - [Download Red Hat Ansible Automation Platform](https://access.redhat.com/downloads/content/480/ver=2.4/rhel---9/2.4/x86_64/product-software "Download Red Hat Ansible Automation Platform")
@@ -31,45 +30,26 @@ Downloading Ansible Automation Platform
 ```
 sudo -i
 dnf install ansible-core
-mkdir -pv ansible/playbooks
-cd ansible/playbooks
-vi download_software.yml
+git clone https://github.com/ericcames/ansible.cli.git
+
 ```
 - Ensure that the correct checksum value is used in this variable: aap_bundle_sha_value
 - [download_software.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/download_software.yml "download_software.yml")
 
-**Create and inventory file**
-
-- [inventory](https://github.com/ericcames/ansible.cli/blob/main/playbooks/inventory "inventory")
-```
-echo localhost > inventory
-```
-
 **Create an ansible-vault file**
 
-- Run the following command to create your secrets.yml file:
+- Run the following command to create your vault.yml file:
 ```
-ansible-vault create secrets.yml
+ansible-vault create vault.yml
 ```
 - Remember your vault password
-- [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/secrets.yml "Vaulted")
-- [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/secrets-example.yml "Example")
+- [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/files/vault.yml "Vaulted")
+- [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/files/example_vault.yml "Example")
 
 **Now you are ready to run your playbook**
 
 - The vault password is the password you used to create your vault
 - Run the following command
 ```
-ansible-playbook -i inventory download_software.yml --ask-vault-pass
-```
-
-**Advanced users**
-```
-sudo -i
-git clone https://github.com/ericcames/ansible.cli.git
-cd ansible.cli/playbooks
-rm secrets.yml
-ansible-vault create secrets.yml
-ansible-playbook -i inventory download_software.yml --ask-vault-pass
-cd
+ansible-playbook -i inventory setup.yml --ask-vault-pass
 ```
