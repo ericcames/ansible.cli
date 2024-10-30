@@ -51,7 +51,8 @@ ansible-vault create vault.yml
 - The vault password is the password you used to create your vault
 - Run the following command
 ```
-ansible-playbook -i inventory setup.yml --ask-vault-pass
+cd ..
+ansible-playbook -i inventory playbooks/setup.yml --ask-vault-pass
 ```
 
 **Time to install ansible automation platform**
