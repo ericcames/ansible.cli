@@ -34,7 +34,7 @@ git clone https://github.com/ericcames/ansible.cli.git
 
 ```
 - Ensure that the correct checksum values are used in this variable: aap_sha_value for the distro you are planning to load
-- [download_software.yml](https://github.com/ericcames/ansible.cli/blob/main/files/distributions.yml "download_software.yml")
+- [distributions.yml](https://github.com/ericcames/ansible.cli/blob/main/files/distributions.yml "distributions.yml")
 
 **Create an ansible-vault file**
 
