@@ -30,11 +30,13 @@
 
   tasks:
 
-    - name: Get our checksum
+    - name: Get our distribution info
       loop: "{{ distributions }}"
       when: item['name'] == aap_distro
       ansible.builtin.set_fact:
         checksum: "{{ item['aap_sha_value'] }}"
+        rh_distro: "{{ item['rh_distro'] }}"
+        architecture: "{{ item['architecture'] }}"
 
     - name: Print out system checks
       ansible.builtin.debug:
