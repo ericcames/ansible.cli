@@ -40,6 +40,7 @@ git clone https://github.com/ericcames/ansible.cli.git
 - Run the following command to create your vault.yml file:
 ```
 cd ansible.cli/files
+rm vault.yml
 ansible-vault create vault.yml
 ```
 - Remember your vault password
