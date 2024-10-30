@@ -47,6 +47,10 @@ ansible-vault create vault.yml
 - [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/files/vault.yml "Vaulted")
 - [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/files/example_vault.yml "Example")
 
+**Update the public ssh key for the ansible-svc user with your public key**
+
+- [ansible-svc](https://github.com/ericcames/ansible.cli/blob/main/files/public_keys/ansible-svc "ansible-svc")
+
 **Now you are ready to prepare for the ansible platform install**
 
 - The vault password is the password you used to create your vault
