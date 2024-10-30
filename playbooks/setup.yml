@@ -6,7 +6,7 @@
   vars:
     keys:
     - name: ansible-svc
-      key: ../files/public/keys/ansible-svc
+      key: ../files/public_keys/ansible-svc
     users:
     - name: ansible-svc
       sudoers_account: true
