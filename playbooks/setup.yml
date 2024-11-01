@@ -33,7 +33,7 @@
 
     - name: Get diskspace
       register: diskspace
-      change_when: false
+      changed_when: false
       ansible.builtin.command: lsblk -f
 
     - name: Get our distribution info
