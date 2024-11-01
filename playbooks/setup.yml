@@ -33,11 +33,8 @@
 
     - name: Get diskspace
       register: diskspace
+      change_when: false
       ansible.builtin.command: lsblk -f
-
-    - name: Print
-      debug:
-        msg: "{{ diskspace['stdout_lines'] }}"
 
     - name: Get our distribution info
       loop: "{{ distributions }}"
@@ -54,7 +51,7 @@
           - "Total system memory: {{ ansible_memtotal_mb }} mb"
           - "Total cpu count: {{ ansible_processor_count }}"
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
-          - "Diskspace:"
+          - Diskspace
           - "{{ diskspace['stdout_lines'] }}"
           - "We are installing {{ aap_distro }} AAP the checksum is {{ checksum }}"
 
