@@ -4,6 +4,9 @@ Ansible command line tools.
 
 Downloading Ansible Automation Platform
 =========
+This will download the software and setup an inventory file for 2.4 rpm, 2.4 containerized, 2.5 rpm, 2.5 containerized.  For the containerzied version it creates the non root account (ansible-svc). You will need to validate that you have the correct checksum for the software that you are going to use.  You will be prompted with system output before the automation proceeds.  Additionally all of your credentials will be vaulted so your CISO will love you.
+
+![alt text](https://github.com/ericcames/ansible.cli/blob/main/images/CLIprompt.png "Prompt")
 
 **Generate an offline token from Red Hat**
 
@@ -44,7 +47,7 @@ git clone https://github.com/ericcames/ansible.cli.git
 
 - Run the following command to create your vault.yml file:
 ```
-cd ansible.cli/files
+cd ansible.cli/playbooks/files
 rm vault.yml
 ansible-vault create vault.yml
 ```
@@ -61,7 +64,7 @@ ansible-vault create vault.yml
 - The vault password is the password you used to create your vault
 - Run the following command
 ```
-cd ..
+cd ~/ansible.cli
 ansible-playbook -i inventory playbooks/setup.yml --ask-vault-pass
 ```
 
@@ -77,6 +80,6 @@ cd ~/ansible-platform*
 
 Containerized Ansible Platform install command line with vaulted creds
 ```
-cd /home/ansible-svc/ansible-platform*
+cd ~/ansible-platform*
 ansible-playbook -i inventory-growth ansible.containerized_installer.install -e@vault.yml --ask-vault-pass
 ```

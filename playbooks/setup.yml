@@ -7,7 +7,7 @@
   vars:
     keys:
       - name: ansible-svc
-        key: ../files/public_keys/ansible-svc
+        key: ./files/public_keys/ansible-svc
     users:
       - name: ansible-svc
         sudoers_account: true
@@ -16,8 +16,8 @@
         user_home: /home/ansible-svc
 
   vars_files:
-    - ../files/distributions.yml
-    - ../files/vault.yml
+    - ./files/distributions.yml
+    - ./files/vault.yml
 
   vars_prompt:
     - name: controller_url
@@ -30,6 +30,12 @@
       default: "2.5containerized"
 
   tasks:
+
+    - name: Get diskspace
+      register: diskspace
+      changed_when: false
+      ansible.builtin.command:
+        cmd: lsblk -f
 
     - name: Get our distribution info
       loop: "{{ distributions }}"
@@ -46,7 +52,8 @@
           - "Total system memory: {{ ansible_memtotal_mb }} mb"
           - "Total cpu count: {{ ansible_processor_count }}"
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
-          - "Total disk space: Coming Soon!"
+          - Diskspace
+          - "{{ diskspace['stdout_lines'] }}"
           - "We are installing {{ aap_distro }} AAP the checksum is {{ checksum }}"
 
     - name: Check in with user
