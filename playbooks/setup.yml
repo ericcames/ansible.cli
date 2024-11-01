@@ -54,7 +54,7 @@
           - "Total system memory: {{ ansible_memtotal_mb }} mb"
           - "Total cpu count: {{ ansible_processor_count }}"
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
-          - "Total disk space: Coming Soon!"
+          - "Total disk space: {{ diskspace['stdout_lines'] }}"
           - "We are installing {{ aap_distro }} AAP the checksum is {{ checksum }}"
 
     - name: Check in with user
