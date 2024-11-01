@@ -16,7 +16,7 @@ Downloading Ansible Automation Platform
 **Keep your offline token from Red Hat alive**
 
 - The Red Hat token will expire if it is not used every 30 days. You can setup a cronjob to keep offline token alive.
-- [Customer Portal Keep Alive](https://github.com/ericcames/ansible.cli/blob/main/files/cust_portal_token_keepalive "cust_portal_token_keepalive")
+- [Customer Portal Keep Alive](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/cust_portal_token_keepalive "cust_portal_token_keepalive")
 
 **Get the sha value for the software you want**
 
@@ -38,7 +38,7 @@ dnf install ansible-core
 git clone https://github.com/ericcames/ansible.cli.git
 ```
 - Ensure that the correct checksum values are used in this variable: aap_sha_value for the distro you are planning to load
-- [distributions.yml](https://github.com/ericcames/ansible.cli/blob/main/files/distributions.yml "distributions.yml")
+- [distributions.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/distributions.yml "distributions.yml")
 
 **Create an ansible-vault file**
 
@@ -49,12 +49,12 @@ rm vault.yml
 ansible-vault create vault.yml
 ```
 - Remember your vault password
-- [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/files/vault.yml "Vaulted")
-- [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/files/example_vault.yml "Example")
+- [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/vault.yml "Vaulted")
+- [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/example_vault.yml "Example")
 
 **Update the public ssh key for the ansible-svc user with your public key**
 
-- [ansible-svc](https://github.com/ericcames/ansible.cli/blob/main/files/public_keys/ansible-svc "ansible-svc")
+- [ansible-svc](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/public_keys/ansible-svc "ansible-svc")
 
 **Now you are ready to prepare for the ansible platform install**
 

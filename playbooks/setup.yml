@@ -1,3 +1,4 @@
+---
 - name: Setting up the Ansible Automation Platform install
   hosts: localhost
   connection: local
@@ -5,14 +6,14 @@
 
   vars:
     keys:
-    - name: ansible-svc
-      key: ../files/public_keys/ansible-svc
+      - name: ansible-svc
+        key: ../files/public_keys/ansible-svc
     users:
-    - name: ansible-svc
-      sudoers_account: true
-      user_comment: Service Account
-      # user_password: vaulted
-      user_home: /home/ansible-svc
+      - name: ansible-svc
+        sudoers_account: true
+        user_comment: Service Account
+        # user_password: vaulted
+        user_home: /home/ansible-svc
 
   vars_files:
     - ../files/distributions.yml
@@ -84,6 +85,9 @@
               Authorization: Bearer {{ access_token.json.access_token }}
             dest: ~/aap.tar.gz
             checksum: "sha256: {{ checksum }}"
+            group: root
+            owner: root
+            mode: '0644'
 
         - name: Ensure the aap bundle is opened up
           ansible.builtin.unarchive:
@@ -98,14 +102,15 @@
           args:
             chdir: ~/
 
-        - name: Moving file to old name
-          ansible.builtin.shell: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+        - name: Moving file to original name
+          changed_when: false
+          ansible.builtin.command: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
           args:
             chdir: ~/
 
         - name: Creating the new inventory file
           ansible.builtin.template:
-            src: ../templates/legacy_aap_inventory_controller_file.j2
+            src: legacy_aap_inventory_controller_file.j2
             dest: "~/{{ aap_bundle_dir.stdout }}/inventory"
             owner: root
             group: root
@@ -114,7 +119,7 @@
 
         - name: Copy the vault file into place for the install
           ansible.builtin.copy:
-            src: ../files/vault.yml
+            src: vault.yml
             dest: "~/{{ aap_bundle_dir.stdout }}/vault.yml"
             owner: root
             group: root
@@ -160,6 +165,7 @@
             checksum: "sha256: {{ checksum }}"
             owner: ansible-svc
             group: ansible-svc
+            mode: '0644'
 
         - name: Ensure the aap bundle is opened up
           ansible.builtin.unarchive:
@@ -176,15 +182,16 @@
           args:
             chdir: ~ansible-svc/
 
-        - name: Moving file to old name
-          ansible.builtin.shell: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+        - name: Moving file to original name
+          changed_when: false
+          ansible.builtin.command: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
           args:
             chdir: ~ansible-svc/
 
         - name: Creating the new inventory file
           when: aap_distro == "2.5containerized"
           ansible.builtin.template:
-            src: ../templates/containerized_aap_25_inventory-growth.j2
+            src: containerized_aap_25_inventory-growth.j2
             dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
             owner: ansible-svc
             group: ansible-svc
@@ -194,7 +201,7 @@
         - name: Creating the new inventory file
           when: aap_distro == "2.4containerized"
           ansible.builtin.template:
-            src: ../templates/containerized_aap_24_inventory_controller_file.j2
+            src: containerized_aap_24_inventory_controller_file.j2
             dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
             owner: ansible-svc
             group: ansible-svc
@@ -210,7 +217,7 @@
 
         - name: Copy the vault file into place for the install
           ansible.builtin.copy:
-            src: ../files/vault.yml
+            src: vault.yml
             dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/vault.yml"
             owner: ansible-svc
             group: ansible-svc
