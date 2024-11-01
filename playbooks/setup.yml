@@ -37,7 +37,7 @@
 
     - name: Print
       debug:
-        var: diskspace
+        msg: "{{ diskspace['stdout_lines']"
 
     - name: Get our distribution info
       loop: "{{ distributions }}"
