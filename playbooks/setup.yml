@@ -31,6 +31,14 @@
 
   tasks:
 
+    - name: Get diskspace
+      register: diskspace
+      ansible.builtin.command: lsblk -f
+
+    - name: Print
+      debug:
+        var: diskspace
+
     - name: Get our distribution info
       loop: "{{ distributions }}"
       when: item['name'] == aap_distro
