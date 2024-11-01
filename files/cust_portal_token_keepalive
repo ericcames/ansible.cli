@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d grant_type=refresh_token -d client_id="rhsm-api" -d refresh_token="OFFLINE_TOKEN_GOES_HERE" --fail --silent --show-error --output /dev/null
