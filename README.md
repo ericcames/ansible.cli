@@ -13,6 +13,11 @@ Downloading Ansible Automation Platform
 
 ![alt text](https://github.com/ericcames/ansible.cli/blob/main/images/CLItoken.png "Generate Token")
 
+**Keep your offline token from Red Hat alive**
+
+- The Red Hat token will expire if it is not used every 30 days. You can setup a cronjob to keep offline token alive.
+- [Customer Portal Keep Alive](https://github.com/ericcames/ansible.cli/blob/main/files/cust_portal_token_keepalive "cust_portal_token_keepalive")
+
 **Get the sha value for the software you want**
 
 - [Download Red Hat Ansible Automation Platform](https://access.redhat.com/downloads/content/480/ver=2.4/rhel---9/2.4/x86_64/product-software "Download Red Hat Ansible Automation Platform")
