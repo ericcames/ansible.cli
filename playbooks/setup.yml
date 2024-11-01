@@ -34,7 +34,8 @@
     - name: Get diskspace
       register: diskspace
       changed_when: false
-      ansible.builtin.command: lsblk -f
+      ansible.builtin.command:
+        cmd: lsblk -f
 
     - name: Get our distribution info
       loop: "{{ distributions }}"
