@@ -131,6 +131,7 @@
             owner: root
             group: root
             mode: "0644"
+            decrypt: false
 
     - name: Preparing for a containerized install
       when: aap_distro == "2.4containerized" or
@@ -229,3 +230,4 @@
             owner: ansible-svc
             group: ansible-svc
             mode: "0644"
+            decrypt: false
