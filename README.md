@@ -73,7 +73,7 @@ ansible-playbook -i inventory playbooks/setup.yml --ask-vault-pass
 Legacy Ansible Platform install command line with vaulted creds
 ```
 cd ~/ansible-platform*
-./setup.sh -e@vault.yml -- --ask-vault-pass
+./setup.sh -i inventory -e@vault.yml -- --ask-vault-pass
 ```
 
 - If you are using the containerized version logout and log back in as the ansible-svc user
