@@ -51,6 +51,11 @@ cd ansible.cli/playbooks/files
 rm vault.yml
 ansible-vault create vault.yml
 ```
+Global Search and replace for vi
+```
+esc :%s/PASSWORD/newpassword/g
+```
+
 - Remember your vault password
 - [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/vault.yml "Vaulted")
 - [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/example_vault.yml "Example")
@@ -58,6 +63,10 @@ ansible-vault create vault.yml
 **Update the public ssh key for the ansible-svc user with your public key**
 
 - [ansible-svc](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/public_keys/ansible-svc "ansible-svc")
+
+```
+cat ~ec2-user/.ssh/authorized_keys > ~root/ansible.cli/playbooks/files/public-keys/ansible-svc
+```
 
 **Now you are ready to prepare for the ansible platform install**
 
