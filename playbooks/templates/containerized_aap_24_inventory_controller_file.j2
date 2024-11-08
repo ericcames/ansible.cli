@@ -71,10 +71,10 @@ controller_pg_host={{ controller_url }}
 # -------------------------
 # To use the postinstall feature you need to set these variables
 controller_postinstall = false
-# controller_license_file = /home/ansible-svc/.manifest/{{ manifest_file_name }}
+# controller_license_file = /home/ansible-svc/.manifest/manifest_HomeAAP_20240930T234209Z.zip
 controller_postinstall_dir=/home/ansible-svc/git-repos
 # When using config-as-code in a git repository
-controller_postinstall_repo_url={{ controller_postinstall_repo_url }}
+controller_postinstall_repo_url = https://github.com/ericcames/aap.controller.config.git
 controller_postinstall_repo_ref=main
 
 # To use custom TLS certificate/key you need to set these variables
@@ -93,7 +93,7 @@ hub_pg_host={{ controller_url }}
 hub_postinstall = false
 hub_postinstall_dir=/home/ansible-svc/git-repos
 # When using config-as-code in a git repository
-hub_postinstall_repo_url={{ hub_postinstall_repo_url }}
+hub_postinstall_repo_url = https://github.com/ericcames/aap.automation_hub.config.git
 hub_postinstall_repo_ref=main
 
 # To customize the number of worker containers
