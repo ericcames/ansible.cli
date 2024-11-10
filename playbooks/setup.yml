@@ -102,10 +102,19 @@
             dest: ~/
             remote_src: true
 
-        - name: Ensure we have the RPM AAP bundle directory
+        - name: Ensure we have the RPM AAP 2.4 bundle directory
+          when: aap_distro == "2.4"
           register: aap_bundle_dir
           changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-*
+          ansible.builtin.shell: ls -d ansible-automation-platform-setup-bundle-2.4-*
+          args:
+            chdir: ~/
+
+        - name: Ensure we have the RPM AAP 2.5 bundle directory
+          when: aap_distro == "2.5"
+          register: aap_bundle_dir
+          changed_when: false
+          ansible.builtin.shell: ls -d ansible-automation-platform-setup-bundle-2.5-*
           args:
             chdir: ~/
 
@@ -159,76 +168,105 @@
             group: root
             mode: ug+rwX,o=
 
-        - name: Ensure we have the containerized AAP bundle
-          register: download_aap_tarball
-          until: download_aap_tarball is not failed
-          retries: 5
-          delay: 20
-          ansible.builtin.get_url:
-            url: https://api.access.redhat.com/management/v1/images/{{ checksum }}/download
-            headers:
-              accept: application/json
-              Authorization: Bearer {{ access_token.json.access_token }}
-            dest: ~ansible-svc/aap.tar.gz
-            checksum: "sha256: {{ checksum }}"
-            owner: ansible-svc
-            group: ansible-svc
-            mode: '0644'
-
-        - name: Ensure the containerized aap bundle is opened up
-          register: my_archive
-          ansible.builtin.unarchive:
-            src: ~ansible-svc/aap.tar.gz
-            dest: ~ansible-svc/
-            remote_src: true
-            owner: ansible-svc
-            group: ansible-svc
-
-        - name: Print out download_aap_tarball
-          ansible.builtin.debug:
-            var: my_archive
-
-        - name: Ensure we have the containerized AAP 2.5 bundle directory
-          when: aap_distro == "2.5containerized"
-          register: aap_bundle_dir
-          changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.5-*
-          args:
-            chdir: ~ansible-svc/
-
-        - name: Ensure we have the containerized AAP 2.4 bundle directory
+        - name: Preparing for a containerized 2.4 install
           when: aap_distro == "2.4containerized"
-          register: aap_bundle_dir
-          changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.4-*
-          args:
-            chdir: ~ansible-svc/
+          block:
 
-        - name: Making copy of the containerized file to the original name
-          changed_when: false
-          ansible.builtin.command: "cp aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
-          args:
-            chdir: ~ansible-svc/
+            - name: Ensure we have the 2.4 containerized AAP bundle
+              register: download_aap_tarball
+              until: download_aap_tarball is not failed
+              retries: 5
+              delay: 20
+              ansible.builtin.get_url:
+                url: https://api.access.redhat.com/management/v1/images/{{ checksum }}/download
+                headers:
+                  accept: application/json
+                  Authorization: Bearer {{ access_token.json.access_token }}
+                dest: ~ansible-svc/aap24c.tar.gz
+                checksum: "sha256: {{ checksum }}"
+                owner: ansible-svc
+                group: ansible-svc
+                mode: '0644'
 
-        - name: Creating the new inventory file for 2.5 containerized
+            - name: Ensure the containerized 2.4 aap bundle is opened up
+              ansible.builtin.unarchive:
+                src: ~ansible-svc/aap24c.tar.gz
+                dest: ~ansible-svc/
+                remote_src: true
+                owner: ansible-svc
+                group: ansible-svc
+
+            - name: Ensure we have the containerized AAP 2.4 bundle directory
+              register: aap_bundle_dir
+              changed_when: false
+              ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.4-*
+              args:
+                chdir: ~ansible-svc/
+
+            - name: Making copy of the containerized file to the original name
+              changed_when: false
+              ansible.builtin.command: "cp aap24c.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+              args:
+                chdir: ~ansible-svc/
+
+            - name: Creating the new inventory file for 2.4 containerized
+              ansible.builtin.template:
+                src: containerized_aap_24_inventory_controller_file.j2
+                dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
+                owner: ansible-svc
+                group: ansible-svc
+                mode: "0644"
+                backup: true
+
+        - name: Preparing for a containerized 2.5 install
           when: aap_distro == "2.5containerized"
-          ansible.builtin.template:
-            src: containerized_aap_25_inventory-growth.j2
-            dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
-            owner: ansible-svc
-            group: ansible-svc
-            mode: "0644"
-            backup: true
+          block:
 
-        - name: Creating the new inventory file for 2.4 containerized
-          when: aap_distro == "2.4containerized"
-          ansible.builtin.template:
-            src: containerized_aap_24_inventory_controller_file.j2
-            dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
-            owner: ansible-svc
-            group: ansible-svc
-            mode: "0644"
-            backup: true
+            - name: Ensure we have the 2.5 containerized AAP bundle
+              register: download_aap_tarball
+              until: download_aap_tarball is not failed
+              retries: 5
+              delay: 20
+              ansible.builtin.get_url:
+                url: https://api.access.redhat.com/management/v1/images/{{ checksum }}/download
+                headers:
+                  accept: application/json
+                  Authorization: Bearer {{ access_token.json.access_token }}
+                dest: ~ansible-svc/aap25c.tar.gz
+                checksum: "sha256: {{ checksum }}"
+                owner: ansible-svc
+                group: ansible-svc
+                mode: '0644'
+
+            - name: Ensure the containerized 2.5 aap bundle is opened up
+              ansible.builtin.unarchive:
+                src: ~ansible-svc/aap25c.tar.gz
+                dest: ~ansible-svc/
+                remote_src: true
+                owner: ansible-svc
+                group: ansible-svc
+
+            - name: Ensure we have the containerized AAP 2.5 bundle directory
+              register: aap_bundle_dir
+              changed_when: false
+              ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.5-*
+              args:
+                chdir: ~ansible-svc/
+
+            - name: Making copy of the 2.5 containerized file to the original name
+              changed_when: false
+              ansible.builtin.command: "cp aap25.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+              args:
+                chdir: ~ansible-svc/
+
+            - name: Creating the new inventory file for 2.5 containerized
+              ansible.builtin.template:
+                src: containerized_aap_25_inventory-growth.j2
+                dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
+                owner: ansible-svc
+                group: ansible-svc
+                mode: "0644"
+                backup: true
 
         - name: Making sure the public keys are in place
           loop: "{{ keys }}"
