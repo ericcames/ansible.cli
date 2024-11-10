@@ -25,7 +25,7 @@
       private: false
 
     - name: aap_distro
-      prompt: "Which Ansible Automation Platform (AAP) distro to use 2.4 | 2.5 | 2.4containerized | 2.5containerized? default: 2.5containerized"
+      prompt: "Which Ansible Automation Platform (AAP) distro to use 2.4 or 2.5 or 2.4containerized or 2.5containerized? default: 2.5containerized"
       private: false
       default: "2.5containerized"
 
@@ -168,6 +168,13 @@
             group: root
             mode: ug+rwX,o=
 
+        - name: Making sure the public keys are in place
+          loop: "{{ keys }}"
+          ansible.posix.authorized_key:
+            user: "{{ item['name'] }}"
+            state: present
+            key: "{{ lookup('file', item['key']) }}"
+
         - name: Preparing for a containerized 2.4 install
           when: aap_distro == "2.4containerized"
           block:
@@ -199,7 +206,7 @@
             - name: Ensure we have the containerized AAP 2.4 bundle directory
               register: aap_bundle_dir
               changed_when: false
-              ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.4-*
+              ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.4-* | grep -v tar.gz
               args:
                 chdir: ~ansible-svc/
 
@@ -217,6 +224,15 @@
                 group: ansible-svc
                 mode: "0644"
                 backup: true
+
+            - name: Copy the vault file into place for the install
+              ansible.builtin.copy:
+                src: vault.yml
+                dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/vault.yml"
+                owner: ansible-svc
+                group: ansible-svc
+                mode: "0644"
+                decrypt: false
 
         - name: Preparing for a containerized 2.5 install
           when: aap_distro == "2.5containerized"
@@ -249,7 +265,7 @@
             - name: Ensure we have the containerized AAP 2.5 bundle directory
               register: aap_bundle_dir
               changed_when: false
-              ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.5-*
+              ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.5-* | grep -v tar.gz
               args:
                 chdir: ~ansible-svc/
 
@@ -268,18 +284,11 @@
                 mode: "0644"
                 backup: true
 
-        - name: Making sure the public keys are in place
-          loop: "{{ keys }}"
-          ansible.posix.authorized_key:
-            user: "{{ item['name'] }}"
-            state: present
-            key: "{{ lookup('file', item['key']) }}"
-
-        - name: Copy the vault file into place for the install
-          ansible.builtin.copy:
-            src: vault.yml
-            dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/vault.yml"
-            owner: ansible-svc
-            group: ansible-svc
-            mode: "0644"
-            decrypt: false
+            - name: Copy the vault file into place for the install
+              ansible.builtin.copy:
+                src: vault.yml
+                dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/vault.yml"
+                owner: ansible-svc
+                group: ansible-svc
+                mode: "0644"
+                decrypt: false
