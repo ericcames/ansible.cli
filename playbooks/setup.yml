@@ -171,7 +171,7 @@
         - name: Checking to see if we have already opened the 2.5 bundle
           register: my_test
           ansible.builtin.stat:
-            path: ~/aap24_was_opened
+            path: ~/aap25_was_opened
 
         - name: Ensure the 2.5 RPM aap bundle is opened up
           when: my_test.stat.exists == false
