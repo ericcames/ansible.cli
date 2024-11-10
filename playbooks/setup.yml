@@ -175,11 +175,8 @@
             group: ansible-svc
             mode: '0644'
 
-        - name: Print out download_aap_tarball
-          ansible.builtin.debug:
-            var: download_aap_tarball
-
         - name: Ensure the containerized aap bundle is opened up
+          register: my_archive
           ansible.builtin.unarchive:
             src: ~ansible-svc/aap.tar.gz
             dest: ~ansible-svc/
@@ -187,10 +184,23 @@
             owner: ansible-svc
             group: ansible-svc
 
-        - name: Ensure we have the containerized AAP bundle directory
+        - name: Print out download_aap_tarball
+          ansible.builtin.debug:
+            var: my_archive
+
+        - name: Ensure we have the containerized AAP 2.5 bundle directory
+          when: aap_distro == "2.5containerized"
           register: aap_bundle_dir
           changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-*
+          ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.5-*
+          args:
+            chdir: ~ansible-svc/
+
+        - name: Ensure we have the containerized AAP 2.4 bundle directory
+          when: aap_distro == "2.4containerized"
+          register: aap_bundle_dir
+          changed_when: false
+          ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.4-*
           args:
             chdir: ~ansible-svc/
 
