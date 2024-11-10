@@ -200,10 +200,6 @@
           ansible.builtin.stat:
             path: ~ansible-svc/aap24_was_opened
 
-        - name: Print
-          debug:
-            var: my_test
-
         - name: Ensure the containerized 2.4 aap bundle is opened up
           when: my_test.stat.exists == false
           ansible.builtin.unarchive:
@@ -214,6 +210,7 @@
             group: ansible-svc
 
         - name: Create a file to let us know if we have already opened up the containerized 2.4 aap bundle
+          when: my_test.stat.exists == false
           ansible.builtin.copy:
             content: ""
             dest: ~ansible-svc/aap24_was_opened
@@ -272,13 +269,28 @@
             group: ansible-svc
             mode: '0644'
 
+        - name: Checking to see if we have already opened the 2.5 bundle
+          register: my_test
+          ansible.builtin.stat:
+            path: ~ansible-svc/aap25_was_opened
+
         - name: Ensure the containerized 2.5 aap bundle is opened up
+          when: my_test.stat.exists == false
           ansible.builtin.unarchive:
             src: ~ansible-svc/aap25c.tar.gz
             dest: ~ansible-svc/
             remote_src: true
             owner: ansible-svc
             group: ansible-svc
+
+        - name: Create a file to let us know if we have already opened up the containerized 2.5 aap bundle
+          when: my_test.stat.exists == false
+          ansible.builtin.copy:
+            content: ""
+            dest: ~ansible-svc/aap25_was_opened
+            owner: ansible-svc
+            group: ansible-svc
+            mode: 0444
 
         - name: Ensure we have the containerized AAP 2.5 bundle directory
           register: aap_bundle_dir
