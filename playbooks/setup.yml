@@ -80,7 +80,7 @@
             aap_distro == "2.5"
       block:
 
-        - name: Ensure we have the AAP bundle
+        - name: Ensure we have the RPM AAP bundle
           register: download_aap_tarball
           until: download_aap_tarball is not failed
           retries: 5
@@ -96,22 +96,22 @@
             owner: root
             mode: '0644'
 
-        - name: Ensure the aap bundle is opened up
+        - name: Ensure the RPM aap bundle is opened up
           ansible.builtin.unarchive:
             src: ~/aap.tar.gz
             dest: ~/
             remote_src: true
 
-        - name: Ensure we have the AAP bundle directory
+        - name: Ensure we have the RPM AAP bundle directory
           register: aap_bundle_dir
           changed_when: false
           ansible.builtin.shell: ls -d ansible-automation-platform-*
           args:
             chdir: ~/
 
-        - name: Moving file to original name
+        - name: Make copy of the RPM bundle to original name
           changed_when: false
-          ansible.builtin.command: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+          ansible.builtin.command: "cp aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
           args:
             chdir: ~/
 
@@ -159,7 +159,7 @@
             group: root
             mode: ug+rwX,o=
 
-        - name: Ensure we have the AAP bundle
+        - name: Ensure we have the containerized AAP bundle
           register: download_aap_tarball
           until: download_aap_tarball is not failed
           retries: 5
@@ -179,7 +179,7 @@
           ansible.builtin.debug:
             var: download_aap_tarball
 
-        - name: Ensure the aap bundle is opened up
+        - name: Ensure the containerized aap bundle is opened up
           ansible.builtin.unarchive:
             src: ~ansible-svc/aap.tar.gz
             dest: ~ansible-svc/
@@ -187,20 +187,20 @@
             owner: ansible-svc
             group: ansible-svc
 
-        - name: Ensure we have the AAP bundle directory
+        - name: Ensure we have the containerized AAP bundle directory
           register: aap_bundle_dir
           changed_when: false
           ansible.builtin.shell: ls -d ansible-automation-platform-*
           args:
             chdir: ~ansible-svc/
 
-        - name: Moving file to original name
+        - name: Making copy of the containerized file to the original name
           changed_when: false
-          ansible.builtin.command: "mv aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+          ansible.builtin.command: "cp aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
           args:
             chdir: ~ansible-svc/
 
-        - name: Creating the new inventory file
+        - name: Creating the new inventory file for 2.5 containerized
           when: aap_distro == "2.5containerized"
           ansible.builtin.template:
             src: containerized_aap_25_inventory-growth.j2
@@ -210,7 +210,7 @@
             mode: "0644"
             backup: true
 
-        - name: Creating the new inventory file
+        - name: Creating the new inventory file for 2.4 containerized
           when: aap_distro == "2.4containerized"
           ansible.builtin.template:
             src: containerized_aap_24_inventory_controller_file.j2
