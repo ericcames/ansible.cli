@@ -75,12 +75,11 @@
           client_id: rhsm-api
           refresh_token: "{{ offline_token }}"
 
-    - name: Preparing for a Legacy install
-      when: aap_distro == "2.4" or
-            aap_distro == "2.5"
+    - name: Preparing for a Legacy 2.4 install
+      when: aap_distro == "2.4"
       block:
 
-        - name: Ensure we have the RPM AAP bundle
+        - name: Ensure we have the 2.4 RPM AAP bundle
           register: download_aap_tarball
           until: download_aap_tarball is not failed
           retries: 5
@@ -90,41 +89,47 @@
             headers:
               accept: application/json
               Authorization: Bearer {{ access_token.json.access_token }}
-            dest: ~/aap.tar.gz
+            dest: ~/aap24.tar.gz
             checksum: "sha256: {{ checksum }}"
             group: root
             owner: root
             mode: '0644'
 
-        - name: Ensure the RPM aap bundle is opened up
+        - name: Checking to see if we have already opened the 2.4 bundle
+          register: my_test
+          ansible.builtin.stat:
+            path: ~/aap24_was_opened
+
+        - name: Ensure the 2.4 RPM aap bundle is opened up
+          when: my_test.stat.exists == false
           ansible.builtin.unarchive:
-            src: ~/aap.tar.gz
+            src: ~/aap24.tar.gz
             dest: ~/
             remote_src: true
 
+        - name: Create a file to let us know if we have already opened up the 2.4 aap bundle
+          when: my_test.stat.exists == false
+          ansible.builtin.copy:
+            content: ""
+            dest: ~/aap24_was_opened
+            owner: root
+            group: root
+            mode: 0444
+
         - name: Ensure we have the RPM AAP 2.4 bundle directory
-          when: aap_distro == "2.4"
           register: aap_bundle_dir
           changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-setup-bundle-2.4-*
+          ansible.builtin.shell: ls -d ansible-automation-platform-setup-bundle-2.4-* | grep -v tar.gz
           args:
             chdir: ~/
 
-        - name: Ensure we have the RPM AAP 2.5 bundle directory
-          when: aap_distro == "2.5"
-          register: aap_bundle_dir
+        - name: Make copy of the 2.4 RPM bundle to original name
           changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-setup-bundle-2.5-*
+          ansible.builtin.command: "cp aap24.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
           args:
             chdir: ~/
 
-        - name: Make copy of the RPM bundle to original name
-          changed_when: false
-          ansible.builtin.command: "cp aap.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
-          args:
-            chdir: ~/
-
-        - name: Creating the new inventory file
+        - name: Creating the new 2.4 inventory file
           ansible.builtin.template:
             src: legacy_aap_inventory_controller_file.j2
             dest: "~/{{ aap_bundle_dir.stdout }}/inventory"
@@ -133,7 +138,80 @@
             mode: "0644"
             backup: true
 
-        - name: Copy the vault file into place for the install
+        - name: Copy the vault file into place for the 2.4 install
+          ansible.builtin.copy:
+            src: vault.yml
+            dest: "~/{{ aap_bundle_dir.stdout }}/vault.yml"
+            owner: root
+            group: root
+            mode: "0644"
+            decrypt: false
+
+
+    - name: Preparing for a Legacy 2.5 install
+      when: aap_distro == "2.5"
+      block:
+
+        - name: Ensure we have the 2.5 RPM AAP bundle
+          register: download_aap_tarball
+          until: download_aap_tarball is not failed
+          retries: 5
+          delay: 20
+          ansible.builtin.get_url:
+            url: https://api.access.redhat.com/management/v1/images/{{ checksum }}/download
+            headers:
+              accept: application/json
+              Authorization: Bearer {{ access_token.json.access_token }}
+            dest: ~/aap25.tar.gz
+            checksum: "sha256: {{ checksum }}"
+            group: root
+            owner: root
+            mode: '0644'
+
+        - name: Checking to see if we have already opened the 2.5 bundle
+          register: my_test
+          ansible.builtin.stat:
+            path: ~/aap24_was_opened
+
+        - name: Ensure the 2.5 RPM aap bundle is opened up
+          when: my_test.stat.exists == false
+          ansible.builtin.unarchive:
+            src: ~/aap25.tar.gz
+            dest: ~/
+            remote_src: true
+
+        - name: Create a file to let us know if we have already opened up the 2.5 aap bundle
+          when: my_test.stat.exists == false
+          ansible.builtin.copy:
+            content: ""
+            dest: ~/aap25_was_opened
+            owner: root
+            group: root
+            mode: 0444
+
+        - name: Ensure we have the RPM AAP 2.5 bundle directory
+          register: aap_bundle_dir
+          changed_when: false
+          ansible.builtin.shell: ls -d ansible-automation-platform-setup-bundle-2.5-* | grep -v tar.gz
+          args:
+            chdir: ~/
+
+        - name: Make copy of the 2.5 RPM bundle to original name
+          changed_when: false
+          ansible.builtin.command: "cp aap25.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+          args:
+            chdir: ~/
+
+        - name: Creating the new 2.5 inventory file
+          ansible.builtin.template:
+            src: legacy_aap_inventory_controller_file.j2
+            dest: "~/{{ aap_bundle_dir.stdout }}/inventory"
+            owner: root
+            group: root
+            mode: "0644"
+            backup: true
+
+        - name: Copy the vault file into place for the 2.5 install
           ansible.builtin.copy:
             src: vault.yml
             dest: "~/{{ aap_bundle_dir.stdout }}/vault.yml"
