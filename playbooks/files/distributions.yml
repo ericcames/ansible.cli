@@ -15,4 +15,4 @@ distributions:
   - name: '2.4'
     rh_distro: 8.8
     architecture: x86_64
-    aap_sha_value: 21c0a27c809c1a98402bdb7605b67b62174b2f54155bad4146c1824be0830f70
+    aap_sha_value: 9dc5b5439caef3cd2d4c598d9861ca8f0bdbae77688db299ac02601ce9fe1ce9
