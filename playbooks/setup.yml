@@ -205,7 +205,7 @@
             var: my_test
 
         - name: Ensure the containerized 2.4 aap bundle is opened up
-          when: my_test.stat.exists == true
+          when: my_test.stat.exists == false
           ansible.builtin.unarchive:
             src: ~ansible-svc/aap24c.tar.gz
             dest: ~ansible-svc/
