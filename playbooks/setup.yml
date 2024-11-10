@@ -25,7 +25,7 @@
       private: false
 
     - name: aap_distro
-      prompt: "Which Ansible Automation Platform (AAP) distro to use 2.4, 2.5, 2.4containerized, 2.5containerized? default: 2.5containerized"
+      prompt: "Which Ansible Automation Platform (AAP) distro to use 2.4 | 2.5 | 2.4containerized | 2.5containerized? default: 2.5containerized"
       private: false
       default: "2.5containerized"
 
