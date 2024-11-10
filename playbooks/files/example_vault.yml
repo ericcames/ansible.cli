@@ -11,9 +11,6 @@ registry_password: PASSWORD
 user_password: PASSWORD
 
 # Containerized Ansible inventory variables
-controller_username: admin
-controller_password: PASSWORD
-
 postgresql_admin_username: postgres
 postgresql_admin_password: PASSWORD
 
