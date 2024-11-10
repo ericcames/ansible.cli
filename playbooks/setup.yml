@@ -102,10 +102,19 @@
             dest: ~/
             remote_src: true
 
-        - name: Ensure we have the RPM AAP bundle directory
+        - name: Ensure we have the RPM AAP 2.4 bundle directory
+          when: aap_distro == "2.4"
           register: aap_bundle_dir
           changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-*
+          ansible.builtin.shell: ls -d ansible-automation-platform-setup-bundle-2.4-*
+          args:
+            chdir: ~/
+
+        - name: Ensure we have the RPM AAP 2.5 bundle directory
+          when: aap_distro == "2.5"
+          register: aap_bundle_dir
+          changed_when: false
+          ansible.builtin.shell: ls -d ansible-automation-platform-setup-bundle-2.5-*
           args:
             chdir: ~/
 
@@ -176,17 +185,12 @@
             mode: '0644'
 
         - name: Ensure the containerized aap bundle is opened up
-          register: my_archive
           ansible.builtin.unarchive:
             src: ~ansible-svc/aap.tar.gz
             dest: ~ansible-svc/
             remote_src: true
             owner: ansible-svc
             group: ansible-svc
-
-        - name: Print out download_aap_tarball
-          ansible.builtin.debug:
-            var: my_archive
 
         - name: Ensure we have the containerized AAP 2.5 bundle directory
           when: aap_distro == "2.5containerized"
