@@ -255,7 +255,7 @@
 
             - name: Making copy of the 2.5 containerized file to the original name
               changed_when: false
-              ansible.builtin.command: "cp aap25.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+              ansible.builtin.command: "cp aap25c.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
               args:
                 chdir: ~ansible-svc/
 
