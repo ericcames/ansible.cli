@@ -55,7 +55,7 @@ esc :%s/PASSWORD/newpassword/g
 - [Vaulted secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/vault.yml "Vaulted")
 - [Example secrets.yml](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/example_vault.yml "Example")
 
-**Update the public ssh key for the ansible-svc user with your public key**
+**If you are doing a containerized install update the public ssh key for the ansible-svc user with your public key**
 
 - [ansible-svc](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/public_keys/ansible-svc "ansible-svc")
 
