@@ -45,10 +45,13 @@
         rh_distro: "{{ item['rh_distro'] }}"
         architecture: "{{ item['architecture'] }}"
         use_bundle: "{{ item['use_bundle'] }}"
+        name: "{{ item['name'] }}"
 
     - name: Print
       debug:
-        var: use_bundle
+        var:
+          - use_bundle
+          - name
 
     - name: Print out system checks
       ansible.builtin.debug:
