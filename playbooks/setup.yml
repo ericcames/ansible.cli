@@ -359,7 +359,7 @@
             path: ~ansible-svc/aap25c_was_opened
 
         - name: Ensure the containerized 2.5 aap is opened up
-          when: my_test.stat.exists is undefined
+          when: my_test.stat.exists == false
           ansible.builtin.unarchive:
             src: ~ansible-svc/aap25c.tar.gz
             dest: ~ansible-svc/
@@ -368,7 +368,7 @@
             group: ansible-svc
 
         - name: Create a file to let us know if we have already opened up the containerized 2.5 aap software
-          when: my_test.stat.exists is undefined
+          when: my_test.stat.exists == false
           ansible.builtin.copy:
             content: ""
             dest: ~ansible-svc/aap25c_was_opened
