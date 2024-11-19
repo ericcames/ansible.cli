@@ -4,19 +4,19 @@ distributions:
     rh_distro: 9.2
     architecture: x86_64
     aap_sha_value: 62e6bd23bd6d74e47e36f08849981e724b92056d5cd68a676f2d01f234070806
-    bundle: 'false'
+    bundle: false
   - name: '2.5'
     rh_distro: 8.8
     architecture: x86_64
     aap_sha_value: d991c29aa0c018594343a0b1acea30485fb520e5a562c8e10871695e840d20de
-    bundle: 'true'
+    bundle: true
   - name: 2.4containerized
     rh_distro: 9.2
     architecture: x86_64
     aap_sha_value: 0781cab21cd21992a22bb8ed6f9b1018dff0d092d5882e1e9aafbd48337f6662
-    bundle: 'true'
+    bundle: true
   - name: '2.4'
     rh_distro: 8.8
     architecture: x86_64
     aap_sha_value: 9dc5b5439caef3cd2d4c598d9861ca8f0bdbae77688db299ac02601ce9fe1ce9
-    bundle: 'true'
+    bundle: true
