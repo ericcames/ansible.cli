@@ -44,6 +44,7 @@
         checksum: "{{ item['aap_sha_value'] }}"
         rh_distro: "{{ item['rh_distro'] }}"
         architecture: "{{ item['architecture'] }}"
+        bundle: "{{ item['bundle'] }}"
 
     - name: Print out system checks
       ansible.builtin.debug:
@@ -54,7 +55,7 @@
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
           - Diskspace
           - "{{ diskspace['stdout_lines'] }}"
-          - "We are installing {{ aap_distro }} AAP the checksum is {{ checksum }}"
+          - "We are installing {{ aap_distro }} AAP bundle is {{ bundle }} the checksum is {{ checksum }}"
 
     - name: Check in with user
       ansible.builtin.pause:
@@ -254,10 +255,12 @@
             key: "{{ lookup('file', item['key']) }}"
 
     - name: Preparing for a containerized 2.4 install
-      when: aap_distro == "2.4containerized"
+      when:
+        - aap_distro == '2.4containerized'
+        - bundle == 'false'
       block:
 
-        - name: Ensure we have the 2.4 containerized AAP bundle
+        - name: Ensure we have the 2.4 containerized AAP software
           register: download_aap_tarball
           until: download_aap_tarball is not failed
           retries: 5
@@ -276,10 +279,10 @@
         - name: Checking to see if we have already opened the 2.4 bundle
           register: my_test
           ansible.builtin.stat:
-            path: ~ansible-svc/aap24_was_opened
+            path: ~ansible-svc/aap24c_was_opened
 
         - name: Ensure the containerized 2.4 aap bundle is opened up
-          when: my_test.stat.exists == false
+          when: my_test.stat.exists is undefined
           ansible.builtin.unarchive:
             src: ~ansible-svc/aap24c.tar.gz
             dest: ~ansible-svc/
@@ -288,18 +291,21 @@
             group: ansible-svc
 
         - name: Create a file to let us know if we have already opened up the containerized 2.4 aap bundle
-          when: my_test.stat.exists == false
+          when: my_test.stat.exists is undefined
           ansible.builtin.copy:
             content: ""
-            dest: ~ansible-svc/aap24_was_opened
+            dest: ~ansible-svc/aap24c_was_opened
             owner: ansible-svc
             group: ansible-svc
-            mode: 0444
+            mode: '0444'
 
-        - name: Ensure we have the containerized AAP 2.4 bundle directory
+        - name: Ensure we have the containerized AAP 2.4 software directory
           register: aap_bundle_dir
           changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.4-* | grep -v tar.gz
+          ansible.builtin.shell:
+            cmd: |
+              set -o pipefail
+              ls -d ansible-automation-platform-containerized-setup-2.4-* | grep -v tar.gz
           args:
             chdir: ~ansible-svc/
 
@@ -327,11 +333,13 @@
             mode: "0644"
             decrypt: false
 
-    - name: Preparing for a containerized 2.5 install
-      when: aap_distro == "2.5containerized"
+    - name: Preparing for a unbundled containerized 2.5 install
+      when:
+        - aap_distro == '2.5containerized'
+        - bundle == 'false'
       block:
 
-        - name: Ensure we have the 2.5 containerized AAP bundle
+        - name: Ensure we have the 2.5 containerized AAP software
           register: download_aap_tarball
           until: download_aap_tarball is not failed
           retries: 5
@@ -347,13 +355,13 @@
             group: ansible-svc
             mode: '0644'
 
-        - name: Checking to see if we have already opened the 2.5 bundle
+        - name: Checking to see if we have already opened the 2.5
           register: my_test
           ansible.builtin.stat:
-            path: ~ansible-svc/aap25_was_opened
+            path: ~ansible-svc/aap25c_was_opened
 
-        - name: Ensure the containerized 2.5 aap bundle is opened up
-          when: my_test.stat.exists == false
+        - name: Ensure the containerized 2.5 aap is opened up
+          when: my_test.stat.exists is undefined
           ansible.builtin.unarchive:
             src: ~ansible-svc/aap25c.tar.gz
             dest: ~ansible-svc/
@@ -361,19 +369,22 @@
             owner: ansible-svc
             group: ansible-svc
 
-        - name: Create a file to let us know if we have already opened up the containerized 2.5 aap bundle
-          when: my_test.stat.exists == false
+        - name: Create a file to let us know if we have already opened up the containerized 2.5 aap software
+          when: my_test.stat.exists is undefined
           ansible.builtin.copy:
             content: ""
-            dest: ~ansible-svc/aap25_was_opened
+            dest: ~ansible-svc/aap25c_was_opened
             owner: ansible-svc
             group: ansible-svc
-            mode: 0444
+            mode: '0444'
 
-        - name: Ensure we have the containerized AAP 2.5 bundle directory
+        - name: Ensure we have the containerized AAP 2.5 directory
           register: aap_bundle_dir
           changed_when: false
-          ansible.builtin.shell: ls -d ansible-automation-platform-containerized-setup-bundle-2.5-* | grep -v tar.gz
+          ansible.builtin.shell:
+            cmd: |
+              set -o pipefail
+              ls -d ansible-automation-platform-containerized-setup-2.5-* | grep -v tar.gz
           args:
             chdir: ~ansible-svc/
 
