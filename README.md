@@ -60,7 +60,7 @@ esc :%s/PASSWORD/newpassword/g
 - [ansible-svc](https://github.com/ericcames/ansible.cli/blob/main/playbooks/files/public_keys/ansible-svc "ansible-svc")
 
 ```
-cat ~ec2-user/.ssh/authorized_keys > ~root/ansible.cli/playbooks/files/public-keys/ansible-svc
+cat ~ec2-user/.ssh/authorized_keys > ~root/ansible.cli/playbooks/files/public_keys/ansible-svc
 ```
 
 **Now you are ready to prepare for the ansible platform install**
