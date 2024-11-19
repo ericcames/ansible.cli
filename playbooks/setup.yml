@@ -44,12 +44,7 @@
         checksum: "{{ item['aap_sha_value'] }}"
         rh_distro: "{{ item['rh_distro'] }}"
         architecture: "{{ item['architecture'] }}"
-        nonsense: "{{ item['nonsense'] }}"
         name: "{{ item['name'] }}"
-
-    - name: Print
-      debug:
-        var: nonsense
 
     - name: Print out system checks
       ansible.builtin.debug:
@@ -60,7 +55,7 @@
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
           - Diskspace
           - "{{ diskspace['stdout_lines'] }}"
-          - "We are installing {{ aap_distro }} AAP My_Bundle_Value is {{ nonsense }} the checksum is {{ checksum }}"
+          - "We are installing {{ aap_distro }} AAP the checksum is {{ checksum }}"
 
     - name: Check in with user
       ansible.builtin.pause:
@@ -262,7 +257,6 @@
     - name: Preparing for a containerized 2.4 install
       when:
         - aap_distro == '2.4containerized'
-        - nonsense == 'no'
       block:
 
         - name: Ensure we have the 2.4 containerized AAP software
@@ -341,7 +335,6 @@
     - name: Preparing for a unbundled containerized 2.5 install
       when:
         - aap_distro == '2.5containerized'
-        - nonsense == 'no'
       block:
 
         - name: Ensure we have the 2.5 containerized AAP software
