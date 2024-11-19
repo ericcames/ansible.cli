@@ -46,6 +46,10 @@
         architecture: "{{ item['architecture'] }}"
         use_bundle: "{{ item['use_bundle'] }}"
 
+    - name: Print
+      debug:
+        var: use_bundle
+
     - name: Print out system checks
       ansible.builtin.debug:
         msg:
