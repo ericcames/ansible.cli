@@ -35,7 +35,7 @@ controller_hostname = {{ controller_url }}:8443
 controller_validate_certs = false
 controller_configuration_enforce_defaults = true
 
-bundle_install = true
+bundle_install = false
 # The bundle directory must include /bundle in the path
 bundle_dir = /home/ansible-svc/{{ aap_bundle_dir.stdout }}/bundle/
 
