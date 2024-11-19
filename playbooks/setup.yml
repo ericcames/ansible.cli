@@ -49,7 +49,7 @@
 
     - name: Print
       debug:
-        var: name
+        var: nonsense
 
     - name: Print out system checks
       ansible.builtin.debug:
@@ -60,7 +60,7 @@
           - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
           - Diskspace
           - "{{ diskspace['stdout_lines'] }}"
-          - "We are installing {{ aap_distro }} AAP bundle is {{ nonsense }} the checksum is {{ checksum }}"
+          - "We are installing {{ aap_distro }} AAP My_Bundle_Value is {{ nonsense }} the checksum is {{ checksum }}"
 
     - name: Check in with user
       ansible.builtin.pause:
