@@ -3,16 +3,16 @@ distributions:
   - name: 2.5containerized
     rh_distro: 9.2
     architecture: x86_64
-    aap_sha_value: 62e6bd23bd6d74e47e36f08849981e724b92056d5cd68a676f2d01f234070806
+    aap_sha_value: 84bc290cda822a883a95d5d51e6d441a9f3189edbe76f63476400b823d8c8106
   - name: '2.5'
     rh_distro: 8.8
     architecture: x86_64
-    aap_sha_value: af9197985faf8e9f06097129067c98aa85ee8d2db971254677d27db96d4bd7b0
+    aap_sha_value: d991c29aa0c018594343a0b1acea30485fb520e5a562c8e10871695e840d20de
   - name: 2.4containerized
     rh_distro: 9.2
     architecture: x86_64
-    aap_sha_value: 714de904596f2f3312b8804eee0d2fdce6842ac2108dbf718f2107ef61d1598d
+    aap_sha_value: 0781cab21cd21992a22bb8ed6f9b1018dff0d092d5882e1e9aafbd48337f6662
   - name: '2.4'
     rh_distro: 8.8
     architecture: x86_64
-    aap_sha_value: 4a4aa79c18569f5add1033db0f179b4f9394c6dc96f3aadf987debd177a1b768
+    aap_sha_value: 9dc5b5439caef3cd2d4c598d9861ca8f0bdbae77688db299ac02601ce9fe1ce9
