@@ -257,7 +257,7 @@
     - name: Preparing for a containerized 2.4 install
       when:
         - aap_distro == '2.4containerized'
-        - bundle is False
+        - bundle == 'False'
       block:
 
         - name: Ensure we have the 2.4 containerized AAP software
@@ -336,7 +336,7 @@
     - name: Preparing for a unbundled containerized 2.5 install
       when:
         - aap_distro == '2.5containerized'
-        - bundle is False
+        - bundle == 'False'
       block:
 
         - name: Ensure we have the 2.5 containerized AAP software
