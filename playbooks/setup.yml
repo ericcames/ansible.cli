@@ -105,7 +105,7 @@
         aap_distro == "2.5c" or
         aap_distro == "2.5cb"
       ansible.builtin.import_tasks:
-        file: container_all.yml
+        file: ./files/container_all.yml
 
     - name: Import tasks needed for 2.4 containerized install
       when: aap_distro == "2.4c"
