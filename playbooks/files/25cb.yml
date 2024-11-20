@@ -54,6 +54,13 @@
   args:
     chdir: ~ansible-svc/
 
+- name: Update the permissions on the file we just created
+  ansible.builtin.file:
+    path: "~ansible-svc/{{ aap_bundle_dir.stdout }}.tar.gz"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0644'
+
 - name: Creating the new inventory file for 2.5 containerized
   ansible.builtin.template:
     src: containerized_aap_25_inventory-growth_bundle.j2
