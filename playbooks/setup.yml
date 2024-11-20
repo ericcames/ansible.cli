@@ -29,12 +29,6 @@
       private: false
       default: "2.5c"
 
-  pre_tasks:
-
-    - name: Print
-      debug:
-        msg: "hello world"
-
   tasks:
 
     - name: Get diskspace
@@ -64,8 +58,8 @@
           - "Our stand alone controller_url: {{ controller_url }}"
           - "Total system memory: {{ ansible_memtotal_mb }} mb should be >= 16 gigs"
           - "Total cpu count: {{ ansible_processor_vcpus }} should be >= 4"
-          - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }}"
-          - Diskspace
+          - "Red Hat Enterprise Linux: {{ ansible_distribution }} {{ ansible_facts['distribution_version'] }} {{ ansible_facts['userspace_architecture'] }} >= 9.2"
+          - Diskspace >= 60 >= 3000 IOPS
           - "{{ diskspace['stdout_lines'] }}"
           - "{{ podman['stdout_lines'] }}"
           - "We are installing {{ aap_distro }} AAP the checksum is {{ checksum }}"
