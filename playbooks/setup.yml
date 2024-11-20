@@ -25,7 +25,10 @@
       private: false
 
     - name: aap_distro
-      prompt: "Which Ansible Automation Platform (AAP) distro to use 2.4r or 2.5r or 2.4c or 2.5c? default: 2.5c"
+      prompt:
+        - Legend
+        - r = rpm, c = containerized, b = bundle
+        - "Which Ansible Automation Platform (AAP) distro to use 2.4r or 2.4c or 2.4cb 2.5r or 2.5c or 2.5cb? default: 2.5c"
       private: false
       default: "2.5c"
 
