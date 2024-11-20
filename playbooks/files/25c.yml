@@ -20,10 +20,6 @@
   ansible.builtin.stat:
     path: ~ansible-svc/aap25c_was_opened
 
-- name: Print
-  debug:
-    var: my_test
-
 - name: Ensure the containerized 2.5 aap is opened up
   when: my_test.stat.exists == false
   ansible.builtin.unarchive:
