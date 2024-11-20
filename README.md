@@ -49,6 +49,12 @@ ansible-vault create vault.yml
 Global Search and replace for vi
 ```
 esc :%s/PASSWORD/newpassword/g
+
+Also update registry user and password in the vault
+
+# Always need our Red Hat Customer Portal creds to get our sofware
+registry_username: MickeyMouse
+registry_password: PASSWORD
 ```
 
 - Remember your vault password
