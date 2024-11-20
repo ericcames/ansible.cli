@@ -92,12 +92,12 @@
     - name: Import tasks needed for 2.4 rpm software install
       when: aap_distro == "2.4r"
       ansible.builtin.import_tasks:
-        file: 24r.yml
+        file: ./files/24r.yml
 
     - name: Import tasks needed for 2.5 rpm software install
       when: aap_distro == "2.5r"
       ansible.builtin.import_tasks:
-        file: 25r.yml
+        file: ./files/25r.yml
 
     - name: Import tasks needed for all containerized installs
       when: aap_distro == "2.4c" or
@@ -110,19 +110,19 @@
     - name: Import tasks needed for 2.4 containerized install
       when: aap_distro == "2.4c"
       ansible.builtin.import_tasks:
-        file: 24c.yml
+        file: ./files/24c.yml
 
     - name: Import tasks needed for 2.4 containerized install bundle
       when: aap_distro == "2.4cb"
       ansible.builtin.import_tasks:
-        file: 24cb.yml
+        file: ./files/24cb.yml
 
     - name: Import tasks needed for 2.5 containerized install
       when: aap_distro == "2.5c"
       ansible.builtin.import_tasks:
-        file: 25c.yml
+        file: ./files/25c.yml
 
     - name: Import tasks needed for 2.5 containerized install bundle
       when: aap_distro == "2.5cb"
       ansible.builtin.import_tasks:
-        file: 25cb.yml
+        file: ./files/25cb.yml
