@@ -1,0 +1,80 @@
+---
+- name: Ensure we have the 2.5 containerized AAP software
+  register: download_aap_tarball
+  until: download_aap_tarball is not failed
+  retries: 5
+  delay: 20
+  ansible.builtin.get_url:
+    url: https://api.access.redhat.com/management/v1/images/{{ checksum }}/download
+    headers:
+      accept: application/json
+      Authorization: Bearer {{ access_token.json.access_token }}
+    dest: ~ansible-svc/aap25c.tar.gz
+    checksum: "sha256: {{ checksum }}"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0644'
+
+- name: Checking to see if we have already opened the 2.5
+  register: my_test
+  ansible.builtin.stat:
+    path: ~ansible-svc/aap25c_was_opened
+
+- name: Ensure the containerized 2.5 aap is opened up
+  when: my_test.stat.exists == false
+  ansible.builtin.unarchive:
+    src: ~ansible-svc/aap25c.tar.gz
+    dest: ~ansible-svc/
+    remote_src: true
+    owner: ansible-svc
+    group: ansible-svc
+
+- name: Create a file to let us know if we have already opened up the containerized 2.5 aap software
+  when: my_test.stat.exists == false
+  ansible.builtin.copy:
+    content: ""
+    dest: ~ansible-svc/aap25c_was_opened
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0444'
+
+- name: Ensure we have the containerized AAP 2.5 directory
+  register: aap_bundle_dir
+  changed_when: false
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      ls -d ansible-automation-platform-containerized-setup-2.5-* | grep -v tar.gz
+  args:
+    chdir: ~ansible-svc/
+
+- name: Making copy of the 2.5 containerized file to the original name
+  changed_when: false
+  ansible.builtin.command: "cp aap25c.tar.gz {{ aap_bundle_dir.stdout }}.tar.gz"
+  args:
+    chdir: ~ansible-svc/
+
+- name: Update the permissions on the file we just created
+  ansible.builtin.file:
+    path: "~ansible-svc/{{ aap_bundle_dir.stdout }}.tar.gz"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0644'
+
+- name: Creating the new inventory file for 2.5 containerized
+  ansible.builtin.template:
+    src: containerized_aap_25_inventory-growth.j2
+    dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/inventory-growth"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: "0644"
+    backup: true
+
+- name: Copy the vault file into place for the install
+  ansible.builtin.copy:
+    src: vault.yml
+    dest: "~ansible-svc/{{ aap_bundle_dir.stdout }}/vault.yml"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: "0644"
+    decrypt: false

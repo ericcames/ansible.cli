@@ -1,0 +1,104 @@
+# This is the AAP growth installer inventory file
+# Please consult the docs if you're unsure what to add
+# For all optional variables please consult the included README.md
+# or the Red Hat documentation:
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation
+
+# This section is for your AAP Gateway host(s)
+# -----------------------------------------------------
+[automationgateway]
+{{ controller_url }} ansible_connection=local
+
+# This section is for your AAP Controller host(s)
+# -----------------------------------------------------
+[automationcontroller]
+{{ controller_url }} ansible_connection=local
+
+# This section is for your AAP Automation Hub host(s)
+# -----------------------------------------------------
+[automationhub]
+{{ controller_url }} ansible_connection=local
+
+# This section is for your AAP EDA Controller host(s)
+# -----------------------------------------------------
+[automationeda]
+{{ controller_url }} ansible_connection=local
+
+# This section is for the AAP database
+# -----------------------------------------------------
+[database]
+{{ controller_url }} ansible_connection=local
+
+[all:vars]
+CONTROLLER_OPTIONAL_API_URLPATTERN_PREFIX = '/api/controller/'
+controller_hostname = {{ controller_url }}:8443
+controller_validate_certs = false
+controller_configuration_enforce_defaults = true
+
+bundle_install = true
+# The bundle directory must include /bundle in the path
+bundle_dir = /home/ansible-svc/{{ aap_bundle_dir.stdout }}/bundle/
+
+# Common variables
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#ref-general-inventory-variables
+# -----------------------------------------------------
+# postgresql_admin_username = <vaulted>
+# postgresql_admin_password = <vaulted>
+
+registry_auth = true
+# registry_username = <vaulted>
+# registry_password = <vaulted>
+
+
+redis_mode = standalone
+
+# AAP Gateway
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#ref-gateway-variables
+# -----------------------------------------------------
+# gateway_admin_password = <vaulted>
+# gateway_pg_password = <vaulted>
+gateway_pg_host = {{ controller_url }}
+
+
+# AAP Controller
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#ref-controller-variables
+# -----------------------------------------------------
+# controller_admin_password = <vaulted>
+# controller_pg_password = <vaulted>
+controller_pg_host = {{ controller_url }}
+
+
+# AAP Controller - optional
+# -------------------------
+# To use the postinstall feature you need to set these variables
+controller_postinstall = false
+# controller_license_file = /home/ansible-svc/.manifest/manifest_HomeAAP_20240930T234209Z.zip
+controller_postinstall_dir=/home/ansible-svc/git-repos/aap.controller.config
+# When using config-as-code in a git repository
+controller_postinstall_repo_url = https://github.com/ericcames/aap.controller.config.git
+controller_postinstall_repo_ref = main
+
+
+# AAP Automation Hub
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#ref-hub-variables
+# -----------------------------------------------------
+# hub_admin_password = <vaulted>
+# hub_pg_password = <vaulted>
+hub_pg_host = {{ controller_url }}
+
+
+# AAP Automation Hub - optional
+# -----------------------------
+# To use the postinstall feature you need to set these variables
+hub_postinstall = false
+hub_postinstall_dir = /home/ansible-svc/git-repos
+# When using config-as-code in a git repository
+hub_postinstall_repo_url = https://github.com/ericcames/aap.automation_hub.config.git
+hub_postinstall_repo_ref = main
+
+# AAP EDA Controller
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/containerized_installation/appendix-inventory-files-vars#event-driven-ansible-controller
+# -----------------------------------------------------
+# eda_admin_password = <vaulted>
+# eda_pg_password = <vaulted>
+eda_pg_host = {{ controller_url }}
