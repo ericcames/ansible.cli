@@ -44,7 +44,7 @@
   ansible.builtin.shell:
     cmd: |
       set -o pipefail
-      ls -d ansible-automation-platform-containerized-setup-2.4-bundle-* | grep -v tar.gz
+      ls -d ansible-automation-platform-containerized-setup-bundle-2.4* | grep -v tar.gz
   args:
     chdir: ~ansible-svc/
 
