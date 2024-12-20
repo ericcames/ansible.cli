@@ -3,19 +3,19 @@ distributions:
   - name: 2.5c
     rh_distro: 9.2
     architecture: x86_64
-    aap_sha_value: 62e6bd23bd6d74e47e36f08849981e724b92056d5cd68a676f2d01f234070806
+    aap_sha_value: 8231a060e2d0114639fd30baa277955498cc6370075acd032ec70a997703fbed
   - name: 2.5cb
     rh_distro: 9.2
     architecture: x86_64
-    aap_sha_value: 88d801bfb4ba06c21cc1050360429dbb51ba704cba46c42352f6a776149357f8
+    aap_sha_value: 320d18ecc8ae71aa9d2883e76f7ced1f383efe3b76b27c1662a815575ef30511
   - name: '2.5r'
     rh_distro: 8.8
     architecture: x86_64
-    aap_sha_value: af9197985faf8e9f06097129067c98aa85ee8d2db971254677d27db96d4bd7b0
+    aap_sha_value: e96e0a1eeb14887cb90f69394d1a7011decab5a19a8b5c667a8679d1d47a6968
   - name: '2.5rb'
     rh_distro: 8.8
     architecture: x86_64
-    aap_sha_value: c483b61dae0df0decbeaea930ab1d0193c2ec922eac7fc0ae5e93806eef1203e
+    aap_sha_value: bc1ca6087187190f8a8a5663b13509e405f568f080f3c3c1a75a7ea93023436d
   - name: 2.4c
     rh_distro: 9.2
     architecture: x86_64
