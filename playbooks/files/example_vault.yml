@@ -4,29 +4,29 @@ offline_token: OFFLINE_TOKEN_HERE
 
 # Always need our Red Hat Customer Portal creds to get our sofware
 registry_username: MickeyMouse
-registry_password: PASSWORD
+registry_password: "PASSWORD"
 
 # Dedicated non root account for containerized aap
 # User password
-user_password: PASSWORD
+user_password: "PASSWORD"
 
 # Containerized Ansible inventory variables
 postgresql_admin_username: postgres
-postgresql_admin_password: PASSWORD
+postgresql_admin_password: "PASSWORD"
 
-gateway_admin_password: PASSWORD
-gateway_pg_password: PASSWORD
+gateway_admin_password: "PASSWORD"
+gateway_pg_password: "PASSWORD"
 
-controller_admin_password: PASSWORD
-controller_pg_password: PASSWORD
+controller_admin_password: "PASSWORD"
+controller_pg_password: "PASSWORD"
 
-hub_admin_password: PASSWORD
-hub_pg_password: PASSWORD
+hub_admin_password: "PASSWORD"
+hub_pg_password: "PASSWORD"
 
-eda_admin_password: PASSWORD
-eda_pg_password: PASSWORD
+eda_admin_password: "PASSWORD"
+eda_pg_password: "PASSWORD"
 
 # Legacy Ansible inventory variables
-admin_password: PASSWORD
+admin_password: "PASSWORD"
 
-pg_password: PASSWORD
+pg_password: "PASSWORD"
