@@ -7,7 +7,7 @@ distributions:
   - name: 2.5cb
     rh_distro: 9.2
     architecture: x86_64
-    aap_sha_value: 320d18ecc8ae71aa9d2883e76f7ced1f383efe3b76b27c1662a815575ef30511
+    aap_sha_value: 42925dd08b0fdade62fa26c4642b352cddfa64432d56645346ad7ebb964622a0
   - name: '2.5r'
     rh_distro: 8.8
     architecture: x86_64
