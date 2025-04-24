@@ -3,11 +3,11 @@ distributions:
   - name: 2.5c
     rh_distro: 9.2
     architecture: x86_64
-    aap_sha_value: 112915ade008d9e1bdb88ca387b5cb96a029645e8cc2efc81e5b33dd5eb449f4
+    aap_sha_value: 507c46998f9da74d7bbbdbcc503820e712750227f2b5415501252322e30096c3
   - name: 2.5cb
     rh_distro: 9.2
     architecture: x86_64
-    aap_sha_value: f9933501cc85e37037a4093221762f73248322ff1d98f26c2f66b4502ecb3e78
+    aap_sha_value: 105b6b16a6a5aa34610a65389a965de8be769b4457d0b58e98af61d9fa1b0a21
   - name: '2.5r'
     rh_distro: 8.8
     architecture: x86_64
